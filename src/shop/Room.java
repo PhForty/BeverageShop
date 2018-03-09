@@ -8,7 +8,7 @@ package shop;
  * @author Philipp Fortmann
  *
  */
-public abstract class Room {
+public astract class Room {
 	
     private int[] amount = new int[6];
     private int[] max = new int[6];
