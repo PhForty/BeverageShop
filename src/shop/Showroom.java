@@ -1,7 +1,7 @@
 package shop;
 
 /**
- * This class represents the show room
+ * This class represents the show room, it inherits from "Room"
  * 
  * @author Philipp Fortmann
  *

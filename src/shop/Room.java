@@ -8,25 +8,20 @@ package shop;
  * @author Philipp Fortmann
  *
  */
-public astract class Room {
+public abstract class Room {
 	
     private int[] amount = new int[6];
     private int[] max = new int[6];
-    String[] beverages =  {"Mineralwasser (still)","Mineralwasser (mit K.)","Apfelsaft","Orangensaft","Limonade","Bier"};
+    public final String[] beverages =  {"Mineralwasser (still)","Mineralwasser (mit K.)","Apfelsaft","Orangensaft","Limonade","Bier"};
     
     /**
      * gets the amount of a specified drink and returns it
      * 
      * @param drink drink from which the amount is given back
-     * @return returns the amount of the specified drink. returns -1 if drink does not exist
+     * @return returns the amount of the specified drink
      */
     public int getAmount(int drink) {
-    	//check if drink exists
-    	if(drink>=0&&drink<6) {
-    		return amount[drink];
-    	} else {
-    		return -1;
-    	}
+       	return amount[drink];
     }
     /**
      * sets the amount of a given drink to a given value
@@ -75,15 +70,10 @@ public astract class Room {
      * returns the max of a given drink
      * 
      * @param drink specifies which drink's max is wanted
-     * @return the max value of the given drink, returns -1 if drink does not exist
+     * @return the max value of the given drink
      */
     public int getMax(int drink) {
-    	//check if drink exists
-    	if(drink>=0&&drink<6) {
-    		return max[drink];
-    	} else {
-    		return -1;
-    	}
+    	return max[drink];
     }
     
     /**

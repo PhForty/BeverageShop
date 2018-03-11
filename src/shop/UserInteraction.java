@@ -13,8 +13,8 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * the central class, with the menu and most of the logic, which calls the methods in the different
- * rooms, when needed
+ * the central class, with the menu and processing of the input through calling the methods in the different
+ * rooms, when needed. It furthermore can calculate the Order- and Inventorylist by itself 
  * @author Philipp Fortmann
  *
  */
@@ -23,7 +23,7 @@ public class UserInteraction {
 	Storageroom storer1 = new Storageroom(1);
 	Storageroom storer2 = new Storageroom(2);
 	Showroom showr = new Showroom();
-	String[] beverages = { "Mineralwasser (still)", "Mineralwasser (mit K.)", "Apfelsaft", "Orangensaft", "Limonade",
+	public final String[] beverages = { "Mineralwasser (still)", "Mineralwasser (mit K.)", "Apfelsaft", "Orangensaft", "Limonade",
 			"Bier" };
 
 	/**
@@ -78,7 +78,7 @@ public class UserInteraction {
 						
 						drink = querydrink();
 						System.out.println("Wieviele Kästen wollen sie kaufen?");
-						amount = queryamount();
+						amount = queryquantity();
 						showr.buydrink(drink, amount);
 						
 						System.out.println("\n(1) Ja");
@@ -128,7 +128,7 @@ public class UserInteraction {
 					room = queryroom();
 					drink = querydrink();
 					System.out.println("Um wieviel wollen sie den aktuellen Lagerbestand verändern?");
-					amount = queryamount();
+					amount = queryquantity();
 					//increases/ decreases amount in storageroom 1/2, depending on option chosen
 					if (amount > 0) {
 						if (room == 1) {
@@ -152,7 +152,7 @@ public class UserInteraction {
 					room = queryroom();
 					drink = querydrink();
 					System.out.println("Um wieviel wollen sie den maximalen Lagerbestand verändern?");
-					amount = queryamount();
+					amount = queryquantity();
 					//increases/ decreases man in storageroom 1/2, depending on option chosen
 					if (amount > 0) {
 						if (room == 1) {
@@ -337,7 +337,7 @@ public class UserInteraction {
 	 * 
 	 * @return the amount that the user has chosen
 	 */
-	public int queryamount() {
+	public int queryquantity() {
 
 		// detects input
 		Scanner sc = new Scanner(System.in);

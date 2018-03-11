@@ -1,7 +1,7 @@
 package shop;
 
 /**
- * this class represents the storage room
+ * this class represents the storage room, it inherits from "Room"
  * 
  * @author Philipp Fortmann
  *
