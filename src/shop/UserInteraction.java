@@ -432,11 +432,17 @@ public class UserInteraction {
 
 			// writes file
 			List<String> lines = Arrays.asList("Zeitstempel: " + nowstring, s1, s2, s3, s4, s5, s6);
-			Path file = Paths.get("C:/Users/Philipp Fortmann/Documents/BA-RM/DuI Algorithmen/Projekt/Bestellliste.txt");
+			// file path should look like "C:/Users/WillySchreiter/Documents/BA-RM/DuI Algorithmen/Projekt"
+			String userDirectory = System.getProperty("user.home");
+			String dirPath = userDirectory + "/Documents/BA-RM/DuI Algorithmen/Projekt";
+			Path dir = Paths.get(dirPath);
+			String filePath = dirPath + "/Bestellliste.txt";
+			Path file = Paths.get(filePath);
+			Files.createDirectories(dir);
 			Files.write(file, lines, Charset.forName("UTF-8"));
 			// opens file
 			ProcessBuilder pb = new ProcessBuilder("Notepad.exe",
-					"C:/Users/Philipp Fortmann/Documents/BA-RM/DuI Algorithmen/Projekt/Bestellliste.txt");
+					filePath);
 			pb.start();
 
 			System.out.println("Die Datei wurde geschrieben.");
