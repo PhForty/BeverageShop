@@ -40,6 +40,11 @@ public class UserInteraction {
 	 * and calls menu again at the end
 	 */
 	public void menu() throws IOException {
+		boolean wronginput;
+		int room;
+		int amount;
+		int drink;
+		
 		System.out.println("\n---------------------------------------------------------------------");
 		System.out.println("Herzlich Willkommen im Getränkemarktlagerplatzverwaltungssoftwaremenü");
 		System.out.println("Folgende Optionen stehen zur Verfügung:");
@@ -53,10 +58,6 @@ public class UserInteraction {
 		System.out.println("Bitte geben sie die Nummer der gewünschten Option ein: ");
 		Scanner sc = new Scanner(System.in);
 		String input = sc.nextLine();
-		boolean wronginput;
-		int room;
-		int amount;
-		int drink;
 		// checks if input is valid. It will be reiterated until input is valid
 		do {
 			wronginput = false;
