@@ -16,35 +16,35 @@ public class Storageroom extends Room {
 	 */
 	public Storageroom(int room) {
 		//if storageroom one is created:
-		if(room == 1) {
+		if (room == 1) {
 			
-		    setAmount(0,100);
-		    setMax(0,100);
-		    setAmount(1,100);
-		    setMax(1,100);
-		    setAmount(2,50);
-		    setMax(2,50);
-		    setAmount(3,50);
-		    setMax(3,50);
-		    setAmount(4,60);
-		    setMax(4,60);
-		    setAmount(5,40);
-		    setMax(5,40);
+		    setAmount(0, 100);
+		    setMax(0, 100);
+		    setAmount(1, 100);
+		    setMax(1, 100);
+		    setAmount(2, 50);
+		    setMax(2, 50);
+		    setAmount(3, 50);
+		    setMax(3, 50);
+		    setAmount(4, 60);
+		    setMax(4, 60);
+		    setAmount(5, 40);
+		    setMax(5, 40);
 		//if storageroom two is created:
 		}else if (room == 2) {
 			
-		    setAmount(0,0);
-		    setMax(0,0);
-		    setAmount(1,0);
-		    setMax(1,0);
-		    setAmount(2,50);
-		    setMax(2,50);
-		    setAmount(3,50);
-		    setMax(3,50);
-		    setAmount(4,40);
-		    setMax(4,40);
-		    setAmount(5,40);
-		    setMax(5,40);
+		    setAmount(0, 0);
+		    setMax(0, 0);
+		    setAmount(1, 0);
+		    setMax(1, 0);
+		    setAmount(2, 50);
+		    setMax(2, 50);
+		    setAmount(3, 50);
+		    setMax(3, 50);
+		    setAmount(4, 40);
+		    setMax(4, 40);
+		    setAmount(5, 40);
+		    setMax(5, 40);
 		    
 		} else {
 			System.out.println("Es kann nicht ein anderer Raum als 1 oder 2 erzeugt werden");
@@ -69,15 +69,15 @@ public class Storageroom extends Room {
 	 * @param dec value by which max is decreased (positive integer)
 	 */
     public void decreaseMax(int drink, int dec) {
-    	//checks if new max would be lower than current amount 
-    	if((this.getMax(drink)-dec) > this.getAmount(drink)) {
+    	// checks if new max would be lower than current amount 
+    	if ((this.getMax(drink) - dec) > this.getAmount(drink)) {
     		System.out.println("Der maximale Lagerplatz kann nicht verringert werden, da der Platz unter den aktuellen Bestand an Kästen sinken würde.");
     	} 
-    	//checks if new max would be lower than zero
-    	else if(this.getMax(drink) < dec) {
+    	// checks if new max would be lower than zero
+    	else if (this.getMax(drink) < dec) {
     		System.out.println("Der maximale Lagerplatz kann nicht kleiner als 0 werden");
     	} 
-    	//decreases max
+    	// decreases max
     	else {
     		setMax(drink, this.getMax(drink) - dec);
     		System.out.println("Der maximale Lagerplatz für " + beverages[drink] + " wurde um " + dec + " verringert.");

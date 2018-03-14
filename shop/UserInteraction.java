@@ -23,8 +23,8 @@ public class UserInteraction {
 	Storageroom storer1 = new Storageroom(1);
 	Storageroom storer2 = new Storageroom(2);
 	Showroom showr = new Showroom();
-	public final String[] beverages = { "Mineralwasser (still)", "Mineralwasser (mit K.)", "Apfelsaft", "Orangensaft", "Limonade",
-			"Bier" };
+	public final String[] beverages = {"Mineralwasser (still)", "Mineralwasser (mit K.)", "Apfelsaft", "Orangensaft", "Limonade",
+			"Bier"};
 
 	/**
 	 * constructor opens menu
@@ -48,7 +48,7 @@ public class UserInteraction {
 		System.out.println("\n---------------------------------------------------------------------");
 		System.out.println("Herzlich Willkommen im Getränkemarktlagerplatzverwaltungssoftwaremenü");
 		System.out.println("Folgende Optionen stehen zur Verfügung:");
-		System.out.println("(1) Getränke kaufen");
+		System.out.println("(1) Getränke verkaufen");
 		System.out.println("(2) Verkaufsraum auffüllen");
 		System.out.println("(3) Aktuellen Lagerraumbestand verändern");
 		System.out.println("(4) Maximalen Lagerraumplatz verändern");
@@ -61,46 +61,44 @@ public class UserInteraction {
 		// checks if input is valid. It will be reiterated until input is valid
 		do {
 			wronginput = false;
-			//try-catch catches an input that is not an Integer
+			// try-catch catches an input that is not an Integer
 			try {
 				if (Integer.parseInt(input) == 42) {
 					System.out.println("Richtige Antwort! (Wie war nochmal die Frage?)\n");
 				}
 				
-				//executes menu option, depending on input (Integer 1-7)
+				// executes menu option, depending on input (Integer 1-7)
 				switch (Integer.parseInt(input)) {
 				
 				// menu option "Buy drinks"
 				case 1:
 					boolean continuebuying;
-					//reopens the dialog as often as costumer choose to continue
+					// reopens the dialog as often as costumer choose to continue
 					do {
 						continuebuying = false;
 						
 						drink = querydrink();
-						System.out.println("Wieviele Kästen wollen sie kaufen?");
+						System.out.println("Wieviele Kästen wollen sie verkaufen?");
 						amount = queryquantity();
 						showr.buydrink(drink, amount);
 						
 						System.out.println("\n(1) Ja");
 						System.out.println("(2) Nein");
-						System.out.println("Wollen sie noch etwas kaufen?");
+						System.out.println("Wollen sie noch etwas verkaufen?");
 						String input1 = sc.nextLine();
 						boolean wronginput1;
-						//reopens the dialog as often as costumer choose to continue
+						// reopens the dialog as often as costumer choose to continue
 						do {
 							wronginput1 = false;
-							//catches input that is different from an input
+							// catches input that is different from an input
 							try {
-								if(Integer.parseInt(input1) == 42) {
+								if (Integer.parseInt(input1) == 42) {
 									System.out.println("Richtige Antwort! (Wie war nochmal die Frage?)");
 								}
-								if(Integer.parseInt(input1) == 1) {
+								if (Integer.parseInt(input1) == 1) {
 									continuebuying = true; 
-								} 
-								else if (Integer.parseInt(input1) == 2) {
-								}
-								else {
+								// } else if (Integer.parseInt(input1) == 2) {
+								} else {
 									wronginput1 = true;
 									System.out.println("Fehler: Sie haben keine valide Zahl eingegeben");
 								}
@@ -130,7 +128,7 @@ public class UserInteraction {
 					drink = querydrink();
 					System.out.println("Um wieviel wollen sie den aktuellen Lagerbestand verändern?");
 					amount = queryquantity();
-					//increases/ decreases amount in storageroom 1/2, depending on option chosen
+					// increases/ decreases amount in storageroom 1/2, depending on option chosen
 					if (amount > 0) {
 						if (room == 1) {
 							storer1.increaseAmount(drink, amount);
@@ -154,7 +152,7 @@ public class UserInteraction {
 					drink = querydrink();
 					System.out.println("Um wieviel wollen sie den maximalen Lagerbestand verändern?");
 					amount = queryquantity();
-					//increases/ decreases man in storageroom 1/2, depending on option chosen
+					// increases/ decreases man in storageroom 1/2, depending on option chosen
 					if (amount > 0) {
 						if (room == 1) {
 							storer1.increaseMax(drink, amount);
@@ -172,7 +170,7 @@ public class UserInteraction {
 				
 				// menu option "create orderlist"
 				case 5:
-					//prints Orderlist on console
+					// prints Orderlist on console
 					getOrderList(1);
 					
 					System.out.println("(1) Ja");
@@ -180,25 +178,24 @@ public class UserInteraction {
 					System.out.println("Wollen sie die Ausgabe auch als Datei?");
 					String input5 = sc.nextLine();
 					boolean wronginput5;
-					//reiterates over the question until input is valid
+					// reiterates over the question until input is valid
 					do {
-						//catches input that is not an integer
+						// catches input that is not an integer
 						try {
-						wronginput5 = false;
-						if (Integer.parseInt(input5) == 42) {
-							System.out.println("Richtige Antwort! (Wie war nochmal die Frage?)\n");
-						}
-						//if yes was chosen, the input is also put in a file
-						if (Integer.parseInt(input5) == 1) {
-							getOrderList(2);
-							System.out.println("Die Datei wurde erstellt");
-						} else if (Integer.parseInt(input5) == 2) {
-							System.out.println("Es wurde keine Datei erstellt");
-						}
-						else {
-							wronginput5 = true;
-							System.out.println("Sie haben keine valide Zahl angegeben, bitte wählen sie eine der oben genannten Optionen");
-						}
+							wronginput5 = false;
+							if (Integer.parseInt(input5) == 42) {
+								System.out.println("Richtige Antwort! (Wie war nochmal die Frage?)\n");
+							}
+							// if yes was chosen, the input is also put in a file
+							if (Integer.parseInt(input5) == 1) {
+								getOrderList(2);
+								System.out.println("Die Datei wurde erstellt");
+							} else if (Integer.parseInt(input5) == 2) {
+								System.out.println("Es wurde keine Datei erstellt");
+							} else {
+								wronginput5 = true;
+								System.out.println("Sie haben keine valide Zahl angegeben, bitte wählen sie eine der oben genannten Optionen");
+							}
 						}
 						catch (NumberFormatException nfe) {
 							System.out.println("Fehler: Sie haben keine Zahl eingegeben.");
@@ -246,10 +243,10 @@ public class UserInteraction {
 		Scanner sc = new Scanner(System.in);
 		String input = sc.nextLine();
 		boolean wronginput;
-		//reiterates over the question until input is valid
+		// reiterates over the question until input is valid
 		do {
 			wronginput = false;
-			//catches input that is not an integer
+			// catches input that is not an integer
 			try {
 				if (Integer.parseInt(input) == 42) {
 					System.out.println("Richtige Antwort! (Wie war nochmal die Frage?)\n");
@@ -295,12 +292,12 @@ public class UserInteraction {
 		// returns number of drink or asks again for input, if input was false
 		do {
 			wronginput = false;
-			//catches wrong input (not an integer)
+			// catches wrong input (not an integer)
 			try {
 				if (Integer.parseInt(input) == 42) {
 					System.out.println("Richtige Antwort! (Wie war nochmal die Frage?)\n");
 				}
-				//returns the number of the drink (depending on user input)
+				// returns the number of the drink (depending on user input)
 				switch (Integer.parseInt(input)) {
 				case 1:
 					return Integer.parseInt(input) - 1;
@@ -345,11 +342,11 @@ public class UserInteraction {
 		String input = sc.nextLine();
 		boolean wronginput;
 
-		//reiterates until user input is valid
+		// reiterates until user input is valid
 		do {
 			wronginput = false;
 			
-			//catches input that is not an integer
+			// catches input that is not an integer
 			try {
 				if (Integer.parseInt(input) == 42) {
 					System.out.println("Richtige Antwort! (Wie war nochmal die Frage?)\n");
