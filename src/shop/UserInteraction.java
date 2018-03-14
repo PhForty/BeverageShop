@@ -61,19 +61,19 @@ public class UserInteraction {
 		// checks if input is valid. It will be reiterated until input is valid
 		do {
 			wronginput = false;
-			//try-catch catches an input that is not an Integer
+			// try-catch catches an input that is not an Integer
 			try {
 				if (Integer.parseInt(input) == 42) {
 					System.out.println("Richtige Antwort! (Wie war nochmal die Frage?)\n");
 				}
 				
-				//executes menu option, depending on input (Integer 1-7)
+				// executes menu option, depending on input (Integer 1-7)
 				switch (Integer.parseInt(input)) {
 				
 				// menu option "Buy drinks"
 				case 1:
 					boolean continuebuying;
-					//reopens the dialog as often as costumer choose to continue
+					// reopens the dialog as often as costumer choose to continue
 					do {
 						continuebuying = false;
 						
@@ -87,10 +87,10 @@ public class UserInteraction {
 						System.out.println("Wollen sie noch etwas kaufen?");
 						String input1 = sc.nextLine();
 						boolean wronginput1;
-						//reopens the dialog as often as costumer choose to continue
+						// reopens the dialog as often as costumer choose to continue
 						do {
 							wronginput1 = false;
-							//catches input that is different from an input
+							// catches input that is different from an input
 							try {
 								if(Integer.parseInt(input1) == 42) {
 									System.out.println("Richtige Antwort! (Wie war nochmal die Frage?)");
@@ -130,7 +130,7 @@ public class UserInteraction {
 					drink = querydrink();
 					System.out.println("Um wieviel wollen sie den aktuellen Lagerbestand verändern?");
 					amount = queryquantity();
-					//increases/ decreases amount in storageroom 1/2, depending on option chosen
+					// increases/ decreases amount in storageroom 1/2, depending on option chosen
 					if (amount > 0) {
 						if (room == 1) {
 							storer1.increaseAmount(drink, amount);

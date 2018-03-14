@@ -11,6 +11,7 @@ package shop;
 public abstract class Room {
 	
     private int[] amount = new int[6];
+    int test = 0;
     private int[] max = new int[6];
     public final String[] beverages =  {"Mineralwasser (still)","Mineralwasser (mit K.)","Apfelsaft","Orangensaft","Limonade","Bier"};
     
