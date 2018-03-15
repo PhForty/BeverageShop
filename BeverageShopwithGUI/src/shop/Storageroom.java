@@ -56,6 +56,7 @@ public class Storageroom extends Room {
 	 * 
 	 * @param drink the drink where max will be increased
 	 * @param inc value by which max is increased
+	 * @return returns one if successful
 	 */
 	public int increaseMax(int drink, int inc) {
     	setMax(drink,getMax(drink) + inc);
@@ -68,7 +69,7 @@ public class Storageroom extends Room {
 	 * 
 	 * @param drink the drink where max will be decreased
 	 * @param dec value by which max is decreased (positive integer)
-	 * @return returns 1 if successful, 4 if max cant be lowered (because it would go under amount or because it would go under zero
+	 * @return returns 1 if successful, 4 if max can't be lowered (because it would go under amount or because it would go under zero
 	 */
     public int decreaseMax(int drink, int dec) {
     	//checks if new max would be lower than current amount 

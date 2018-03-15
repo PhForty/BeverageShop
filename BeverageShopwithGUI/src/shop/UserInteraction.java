@@ -12,9 +12,8 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * the central class, with the menu and processing of the input through calling
- * the methods in the different rooms, when needed. It furthermore can calculate
- * the Order- and Inventorylist by itself
+ * this class contains the logic. It knows the show room and the store rooms
+ * interacts with them. It furthermore can create an inventory list and an order list
  * 
  * @author Philipp Fortmann
  *
@@ -28,27 +27,18 @@ public class UserInteraction {
 			"Limonade", "Bier" };
 
 	/**
-	 * constructor opens menu
+	 * this method executes the chosen option from the class GUI
+	 * 
+	 * @param input the chosen menu option. an value between 1 and 7 is expected
+	 * @param room the storage room number, ignored, when room number is not needed for action
+	 * @param quantity the quantity for which the action will be performed, ignored when not needed 
+	 * @param drink the drink for which the action will be performed, ignored when not needed
+	 * @return returns 0-4, depending whether the execution was succesfull or not. 0 = something went really wrong; 1= succesfull;
+	 * 			2 = amount is not high enough; 3 = can't make amount that high; 4 = the maximum space can't be lowered that much
+	 * @throws IOException needed, because creation of file might throw this error
 	 */
-	public UserInteraction() throws IOException {
-	}
-
-	/**
-	 * writes the menu in console, scans input, executes code depending on option
-	 * chosen and calls menu again at the end
-	 */
-	// TODO return value, to know in GUI whether it was successful or not (and
-	// display that)
-	// return 0: something went wrong
-	// return 1: successfull
-	// return 2: not enough there (when buying/ lowering amount)
-	// return 3: cant make amount that high (goes over max)
-	// return 4: maxspace cant be lowered by that much
 	public int menu(int input, int room, int quantity, int drink) throws IOException {
-		int returnvalue = -1;
-		if (input == 42) {
-			System.out.println("Richtige Antwort! (Wie war nochmal die Frage?)\n");
-		}
+		int returnvalue = 0;
 
 		// executes menu option, depending on input (Integer 1-7)
 		switch (input) {
@@ -88,7 +78,7 @@ public class UserInteraction {
 
 		// menu option "change max storageroom space"
 		case 4:
-			// increases/ decreases man in storageroom 1/2, depending on option chosen
+			// increases/ decreases max in storageroom 1/2, depending on option chosen
 			if (quantity > 0) {
 				if (room == 1) {
 					returnvalue = storer1.increaseMax(drink, quantity);
@@ -106,15 +96,12 @@ public class UserInteraction {
 
 		// menu option "create orderlist"
 		case 5:
-			// TODO print Orderlist on GUI
-			// TODO find a way to give the user the choice to write a file as well
-			// prints Orderlist on console
+			// prints Orderlist on GUI
 			getOrderList(1);
 			returnvalue = 1;
 
 		// menu option "create Inventorylist"
 		case 6:
-			// TODO print Inventorylist on GUI
 			getInventoryList();
 			returnvalue = 1;
 
@@ -127,15 +114,13 @@ public class UserInteraction {
 	}
 
 	/**
-	 * outputs the orderlist. Either on the console or as a .txt-file the orderlist
-	 * is the added difference(max-amount) for all products in all rooms where
+	 * outputs the orderlist. As an Integer-Array and optionally as a .txt-file.
+	 * The orderlist is the added difference(max-amount) for all products in all rooms where
 	 * max>amount
-	 *
-	 * @param output
-	 *            determines wether the output is on the console or as a .txt-file
-	 * @throws IOException
-	 *             IOException appears during the creation of file. Throw needed, so
-	 *             that creation works
+	 * 
+	 * @param output defines whether file is created or not. If it is "2" a file is created
+	 * @return returns an Integer-Array, filled with the missing amounts for everydrink, over all rooms
+	 * @throws IOException needed, because creation of file might throw this exception
 	 */
 	public int[] getOrderList(int output) throws IOException {
 		Room roomobj = showr;
@@ -157,17 +142,18 @@ public class UserInteraction {
 			missing[2] += roomobj.getMax(2) - roomobj.getAmount(2);
 			missing[3] += roomobj.getMax(3) - roomobj.getAmount(3);
 			missing[4] += roomobj.getMax(4) - roomobj.getAmount(4);
-			missing[5] += roomobj.getMax(5) - roomobj.getAmount(5);
+			missing[5] += roomobj.getMax(5) - roomobj.getAmount(5);		
 		}
-		String s1 = "Insgesamt werden noch " + missing[0] + " Kästen Wasser (still) benötigt.";
-		String s2 = "Insgesamt werden noch " + missing[1] + " Kästen Wasser (mit Kohlensäure) benötigt.";
-		String s3 = "Insgesamt werden noch " + missing[2] + " Kästen Apfelsaft benötigt.";
-		String s4 = "Insgesamt werden noch " + missing[3] + " Kästen Orangensaft benötigt.";
-		String s5 = "Insgesamt werden noch " + missing[4] + " Kästen Limonade benötigt.";
-		String s6 = "Insgesamt werden noch " + missing[5] + " Kästen Bier benötigt.";
-		
 		// output to file
 		if (output == 2) {
+			//creates the sentences
+			String s1 = "Insgesamt werden noch " + missing[0] + " Kästen Wasser (still) benötigt.";
+			String s2 = "Insgesamt werden noch " + missing[1] + " Kästen Wasser (mit Kohlensäure) benötigt.";
+			String s3 = "Insgesamt werden noch " + missing[2] + " Kästen Apfelsaft benötigt.";
+			String s4 = "Insgesamt werden noch " + missing[3] + " Kästen Orangensaft benötigt.";
+			String s5 = "Insgesamt werden noch " + missing[4] + " Kästen Limonade benötigt.";
+			String s6 = "Insgesamt werden noch " + missing[5] + " Kästen Bier benötigt.";
+			
 			// creates timestamp
 			Date date = new Date();
 			DateFormat dateFormat = new SimpleDateFormat("HH:mm - dd.MM.yy");
@@ -194,9 +180,9 @@ public class UserInteraction {
 	}
 
 	/**
-	 * outputs the amount for every drink separated for every room
+	 * outputs the list for all amounts, of all drinks, for every room individually
 	 * 
-	 * @return returns an 2D Integer-Array with room and drinkamount
+	 * @return the result is stored in an 2D-Array. The columns are for the rooms, the rows for the drinkamount
 	 */
 	public int[][] getInventoryList() {
 		
@@ -207,6 +193,7 @@ public class UserInteraction {
 		for(int i = 0; i<3 ; i++) {
 			//iterates over the drinks
 			for(int j = 0; j<6; j++) {
+				//sets the specific values, for every combination of room and drink
 				switch (i) {
 					case 0:
 						inventory[i][j] = showr.getAmount(j);
@@ -234,7 +221,7 @@ public class UserInteraction {
 	 * constructs a new UserInteraction object, starts the program
 	 * 
 	 * @param args
-	 * @throws IOException
+	 * @throws IOException needed, because creation of file in getInventoryList() throws IOException
 	 */
 	public static void main(String[] args) throws IOException {
 		UserInteraction ui = new UserInteraction();

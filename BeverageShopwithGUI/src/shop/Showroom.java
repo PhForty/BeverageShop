@@ -33,7 +33,7 @@ public class Showroom extends Room {
      * 
      * @param drink specifies for which drink the operation is done
      * @param quantity amount, which shall be bought (and therefore is subtracted)
-     * @return returns 1 if successful and 2 if there is not enough there to substract
+     * @return returns 1 if successful and 2 if there is not enough there to subtract
      */
     public int buydrink(int drink, int quantity) {
 		// check if drink exists
