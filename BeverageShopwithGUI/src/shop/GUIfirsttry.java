@@ -17,7 +17,10 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.SplitMenuButton;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -53,19 +56,19 @@ public class GUIfirsttry extends Application {
 		primaryStage.setTitle("JavaFX Titel");
 
 		GridPane grid = new GridPane();
-		// grid.setAlignment(Pos.CENTER);
 		grid.setHgap(20);
 		grid.setVgap(20);
 		grid.setPadding(new Insets(20, 20, 20, 20));
-		;
-
+		
+		//title of the menu option
 		Text scenetitle = new Text("Menüoptionen");
 		scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
 		grid.add(scenetitle, 0, 0, 2, 1);
 
+		//displays chosen option
 		Text optiontitle = new Text("");
 		optiontitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
-		grid.add(optiontitle, 2, 0);
+		grid.add(optiontitle, 2, 0, 2, 1);
 
 		// question and answer field for the quantity
 		Label questionquantity = new Label("Für wieviele Kästen wollen \nsie diese Option ausführen?");
@@ -101,14 +104,54 @@ public class GUIfirsttry extends Application {
 		questionroom.setVisible(false);
 		answerroom.setVisible(false);
 
+		//labels for Orderlist
+		Label orderLabel = new Label();
+		orderLabel.setPadding(new Insets(0,0,0,50));
+		grid.add(orderLabel, 2, 1, 2, 4);
+		orderLabel.setVisible(false);
+		
 		// label for showing if it went right or wrong
 		Label error = new Label();
 		grid.add(error, 2, 4);
 		error.setVisible(false);
 
+		//table for displaying inventorylist
+		TableView table = new TableView();
+		table.setEditable(true);
+		//TODo change width of Getränk
+		TableColumn firstcolumn = new TableColumn("Getränk");
+		TableColumn secondcolumn = new TableColumn("Verkaufsraum");
+		TableColumn thirdcolumn = new TableColumn("Lagerraum 1");
+		TableColumn forthcolumn = new TableColumn("Lagerraum 2");
+		firstcolumn.setCellValueFactory(new PropertyValueFactory<>("drink"));
+		secondcolumn.setCellValueFactory(new PropertyValueFactory<>("showr"));
+		thirdcolumn.setCellValueFactory(new PropertyValueFactory<>("storer1"));
+		forthcolumn.setCellValueFactory(new PropertyValueFactory<>("storer2"));
+		
+		table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+		table.getColumns().addAll(firstcolumn, secondcolumn, thirdcolumn, forthcolumn);
+		grid.add(table, 2, 1, 2, 4);
+		table.setVisible(false);
+		
+		//button for file output (just for Orderlist)
+		Button fileoutput = new Button("Dateiausgabe");
+		HBox hbfile = new HBox(10);
+		hbfile.setAlignment(Pos.BOTTOM_RIGHT);
+		hbfile.getChildren().add(fileoutput);
+		grid.add(hbfile, 3, 4);
+		hbfile.setVisible(false);
+		fileoutput.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				try {
+					ui.getOrderList(2);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		
 		// button for starting the UserInteraction
 		Button enter = new Button("Bestätigen");
-		enter.setAlignment(Pos.BASELINE_RIGHT);
 		HBox hbEnter = new HBox(10);
 		hbEnter.setAlignment(Pos.BOTTOM_RIGHT);
 		hbEnter.getChildren().add(enter);
@@ -388,6 +431,9 @@ public class GUIfirsttry extends Application {
 				answerquantity.setVisible(true);
 				hbEnter.setVisible(true);
 				error.setVisible(false);
+				table.setVisible(false);
+				hbfile.setVisible(false);
+				orderLabel.setVisible(false);
 				optiontitle.setText(option1.getText());
 			}
 		});
@@ -404,6 +450,9 @@ public class GUIfirsttry extends Application {
 				answerroom.setVisible(true);
 				hbEnter.setVisible(true);
 				error.setVisible(false);
+				table.setVisible(false);
+				hbfile.setVisible(false);
+				orderLabel.setVisible(false);
 				optiontitle.setText(option2.getText());
 			}
 		});
@@ -424,6 +473,9 @@ public class GUIfirsttry extends Application {
 				answerroom.setVisible(true);
 				hbEnter.setVisible(true);
 				error.setVisible(false);
+				table.setVisible(false);
+				hbfile.setVisible(false);
+				orderLabel.setVisible(false);
 				optiontitle.setText(option3.getText());
 			}
 		});
@@ -444,6 +496,9 @@ public class GUIfirsttry extends Application {
 				answerroom.setVisible(true);
 				hbEnter.setVisible(true);
 				error.setVisible(false);
+				table.setVisible(false);
+				hbfile.setVisible(false);
+				orderLabel.setVisible(false);
 				optiontitle.setText(option4.getText());
 			}
 		});
@@ -456,14 +511,23 @@ public class GUIfirsttry extends Application {
 			public void handle(ActionEvent e) {
 				System.out.println("Option 5 wird ausgeführt...");
 				chosenoption = 5;
-				questiondrink.setVisible(true);
-				answerdrink.setVisible(true);
-				questionquantity.setVisible(true);
-				answerquantity.setVisible(true);
-				questionroom.setVisible(true);
-				answerdrink.setVisible(true);
-				hbEnter.setVisible(true);
+				hbEnter.setVisible(false);
 				error.setVisible(false);
+				table.setVisible(false);
+				hbfile.setVisible(true);
+				orderLabel.setVisible(true);
+				int[] missing = {0,0,0,0,0,0};
+				try {
+					missing = ui.getOrderList(1);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+				orderLabel.setText("Insgesamt werden noch " + missing[0] + " Kästen Wasser (still) benötigt.\n"
+						+ "Insgesamt werden noch " + missing[1] + " Kästen Wasser (mit Kohlensäure) benötigt.\n"
+								+ "Insgesamt werden noch " + missing[2] + " Kästen Apfelsaft benötigt.\n"
+								+ "Insgesamt werden noch " + missing[3] + " Kästen Orangensaft benötigt. \n"
+								+ "Insgesamt werden noch " + missing[4] + " Kästen Limonade benötigt. \n"
+										+ "Insgesamt werden noch " + missing[5] + " Kästen Bier benötigt.");
 				optiontitle.setText(option5.getText());
 			}
 		});
@@ -476,7 +540,27 @@ public class GUIfirsttry extends Application {
 			public void handle(ActionEvent e) {
 				System.out.println("Option 6 wird ausgeführt...");
 				chosenoption = 6;
-				hbEnter.setVisible(true);
+				table.setVisible(true);
+				questiondrink.setVisible(false);
+				answerdrink.setVisible(false);
+				questionquantity.setVisible(false);
+				answerquantity.setVisible(false);
+				questionroom.setVisible(false);
+				answerroom.setVisible(false);
+				hbEnter.setVisible(false);
+				hbfile.setVisible(false);
+				orderLabel.setVisible(false);
+				int[][] inventory = ui.getInventoryList();
+				
+				ObservableList<tabledata> data = FXCollections.observableArrayList();
+				
+				for(int i = 0; i < 6; i++) {
+					data.add(new tabledata(i, inventory[0][i],inventory[1][i],inventory[2][i]));
+				}
+				
+				
+				table.setItems(data);
+				
 				error.setVisible(false);
 				optiontitle.setText(option6.getText());
 			}
@@ -489,7 +573,7 @@ public class GUIfirsttry extends Application {
 		option7.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				System.out.println("Option 7 wird ausgeführt...");
-				// call for the UserInteraction method to endProgramm
+				ui.endProgramm();
 			}
 		});
 

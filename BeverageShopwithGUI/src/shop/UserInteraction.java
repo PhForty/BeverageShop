@@ -137,14 +137,9 @@ public class UserInteraction {
 	 *             IOException appears during the creation of file. Throw needed, so
 	 *             that creation works
 	 */
-	public void getOrderList(int output) throws IOException {
+	public int[] getOrderList(int output) throws IOException {
 		Room roomobj = showr;
-		int missingWaterStill = 0;
-		int missingWaterSparkling = 0;
-		int missingAppleJuice = 0;
-		int missingOrangeJuice = 0;
-		int missingLimonade = 0;
-		int missingBeer = 0;
+		int[] missing = {0,0,0,0,0,0};
 		// determines the values for the missing beverages over all rooms
 		for (int i = 0; i < 3; i++) {
 			switch (i) {
@@ -157,30 +152,22 @@ public class UserInteraction {
 				roomobj = storer2;
 				break;
 			}
-			missingWaterStill += roomobj.getMax(0) - roomobj.getAmount(0);
-			missingWaterSparkling += roomobj.getMax(1) - roomobj.getAmount(1);
-			missingAppleJuice += roomobj.getMax(2) - roomobj.getAmount(2);
-			missingOrangeJuice += roomobj.getMax(3) - roomobj.getAmount(3);
-			missingLimonade += roomobj.getMax(4) - roomobj.getAmount(4);
-			missingBeer += roomobj.getMax(5) - roomobj.getAmount(5);
+			missing[0] += roomobj.getMax(0) - roomobj.getAmount(0);
+			missing[1] += roomobj.getMax(1) - roomobj.getAmount(1);
+			missing[2] += roomobj.getMax(2) - roomobj.getAmount(2);
+			missing[3] += roomobj.getMax(3) - roomobj.getAmount(3);
+			missing[4] += roomobj.getMax(4) - roomobj.getAmount(4);
+			missing[5] += roomobj.getMax(5) - roomobj.getAmount(5);
 		}
-		String s1 = "Insgesamt werden noch " + missingWaterStill + " Kästen Wasser (still) benötigt.";
-		String s2 = "Insgesamt werden noch " + missingWaterSparkling + " Kästen Wasser (mit Kohlensäure) benötigt.";
-		String s3 = "Insgesamt werden noch " + missingAppleJuice + " Kästen Apfelsaft benötigt.";
-		String s4 = "Insgesamt werden noch " + missingOrangeJuice + " Kästen Orangensaft benötigt.";
-		String s5 = "Insgesamt werden noch " + missingLimonade + " Kästen Limonade benötigt.";
-		String s6 = "Insgesamt werden noch " + missingBeer + " Kästen Bier benötigt.";
-		// output to console
-		if (output == 1) {
-			System.out.println(s1);
-			System.out.println(s2);
-			System.out.println(s3);
-			System.out.println(s4);
-			System.out.println(s5);
-			System.out.println(s6);
-		}
+		String s1 = "Insgesamt werden noch " + missing[0] + " Kästen Wasser (still) benötigt.";
+		String s2 = "Insgesamt werden noch " + missing[1] + " Kästen Wasser (mit Kohlensäure) benötigt.";
+		String s3 = "Insgesamt werden noch " + missing[2] + " Kästen Apfelsaft benötigt.";
+		String s4 = "Insgesamt werden noch " + missing[3] + " Kästen Orangensaft benötigt.";
+		String s5 = "Insgesamt werden noch " + missing[4] + " Kästen Limonade benötigt.";
+		String s6 = "Insgesamt werden noch " + missing[5] + " Kästen Bier benötigt.";
+		
 		// output to file
-		else if (output == 2) {
+		if (output == 2) {
 			// creates timestamp
 			Date date = new Date();
 			DateFormat dateFormat = new SimpleDateFormat("HH:mm - dd.MM.yy");
@@ -203,48 +190,37 @@ public class UserInteraction {
 
 			System.out.println("Die Datei wurde geschrieben.");
 		}
+		return missing;
 	}
 
 	/**
-	 * outputs the amount for every drink separated for every room on the console
+	 * outputs the amount for every drink separated for every room
+	 * 
+	 * @return returns an 2D Integer-Array with room and drinkamount
 	 */
-	public void getInventoryList() {
-
-		// table made from scratch. To make the columns fit, there have to be different
-		// amounts of spaces
-		System.out.print("Verkaufsraum                     ");
-		System.out.print("Lagerraum 1                        ");
-		System.out.println("Lagerraum 2");
-		System.out.print("------------------------+----     ");
-		System.out.print("------------------------+-----      ");
-		System.out.println("------------------------+----");
-		System.out.print(beverages[0] + "   |  " + showr.getAmount(0) + "     ");
-		System.out.print(beverages[0] + "   |  " + storer1.getAmount(0) + "      ");
-		System.out.println(beverages[0] + "   |  " + storer2.getAmount(0));
-
-		System.out.print(beverages[1] + "  |  " + showr.getAmount(1) + "     ");
-		System.out.print(beverages[1] + "  |  " + storer1.getAmount(1) + "      ");
-		System.out.println(beverages[1] + "  |  " + storer2.getAmount(1));
-
-		System.out.print(beverages[2] + "               |  " + showr.getAmount(2) + "     ");
-		System.out.print(beverages[2] + "               |  " + storer1.getAmount(2) + "       ");
-		System.out.println(beverages[2] + "               |  " + storer2.getAmount(2));
-
-		System.out.print(beverages[3] + "             |  " + showr.getAmount(3) + "      ");
-		System.out.print(beverages[3] + "             |  " + storer1.getAmount(3) + "       ");
-		System.out.println(beverages[3] + "             |  " + storer2.getAmount(3));
-
-		System.out.print(beverages[4] + "                |  " + showr.getAmount(4) + "     ");
-		System.out.print(beverages[4] + "                |  " + storer1.getAmount(4) + "       ");
-		System.out.println(beverages[4] + "                |  " + storer2.getAmount(4));
-
-		System.out.print(beverages[5] + "                    |  " + showr.getAmount(5) + "      ");
-		System.out.print(beverages[5] + "                    |  " + storer1.getAmount(5) + "       ");
-		System.out.println(beverages[5] + "                    |  " + storer2.getAmount(5));
-		System.out.print("------------------------+----     ");
-		System.out.print("------------------------+-----      ");
-		System.out.println("------------------------+----");
-
+	public int[][] getInventoryList() {
+		
+		//String Array for [room][drinkamount]
+		int[][] inventory = new int[3][6];
+		
+		//iterates over the rooms
+		for(int i = 0; i<3 ; i++) {
+			//iterates over the drinks
+			for(int j = 0; j<6; j++) {
+				switch (i) {
+					case 0:
+						inventory[i][j] = showr.getAmount(j);
+						break;
+					case 1:
+						inventory[i][j] = storer1.getAmount(j);
+						break;
+					case 2:
+						inventory[i][j] = storer2.getAmount(j);
+						break;
+				}
+			}
+		}
+		return inventory;
 	}
 
 	/**
