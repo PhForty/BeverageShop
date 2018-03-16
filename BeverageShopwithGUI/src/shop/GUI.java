@@ -66,7 +66,7 @@ public class GUI extends Application {
 	// creates the needed objects
 	UserInteraction ui = new UserInteraction();
 	// these are the values that the UserInteraction-method "menu" gets, when called
-	int chosenoption = 0;
+	int chosenOption = 0;
 	int room = 0;
 	int drink = 0;
 	int quantity = 0;
@@ -88,48 +88,48 @@ public class GUI extends Application {
 		grid.setPadding(new Insets(20, 20, 20, 20));
 
 		// title of the menu
-		Text scenetitle = new Text("Menüoptionen");
-		scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
-		grid.add(scenetitle, 0, 0, 2, 1);
+		Text sceneTitle = new Text("Menüoptionen");
+		sceneTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+		grid.add(sceneTitle, 0, 0, 2, 1);
 
 		// title for displaying chosen option
-		Text optiontitle = new Text("");
-		optiontitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
-		grid.add(optiontitle, 2, 0, 2, 1);
+		Text optionTitle = new Text("");
+		optionTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+		grid.add(optionTitle, 2, 0, 2, 1);
 
 		// question and answer field for the quantity
-		Label questionquantity = new Label("Für wieviele Kästen wollen \nsie diese Option ausführen?");
-		questionquantity.setPadding(new Insets(0, 0, 0, 50));
-		grid.add(questionquantity, 2, 1);
-		TextField answerquantity = new TextField();
-		answerquantity.setText("0");
-		answerquantity.setPrefWidth(50);
-		grid.add(answerquantity, 3, 1);
-		questionquantity.setVisible(false);
-		answerquantity.setVisible(false);
+		Label questionQuantity = new Label("Für wieviele Kästen wollen \nsie diese Option ausführen?");
+		questionQuantity.setPadding(new Insets(0, 0, 0, 50));
+		grid.add(questionQuantity, 2, 1);
+		TextField answerQuantity = new TextField();
+		answerQuantity.setText("0");
+		answerQuantity.setPrefWidth(50);
+		grid.add(answerQuantity, 3, 1);
+		questionQuantity.setVisible(false);
+		answerQuantity.setVisible(false);
 
 		// question and answer field for the drink
-		Label questiondrink = new Label("Für welches Getränk wollen \nsie diese Option ausführen?");
-		questiondrink.setPadding(new Insets(0, 0, 0, 50));
-		grid.add(questiondrink, 2, 2);
-		ObservableList<String> optionsdrink = FXCollections.observableArrayList(Room.beverages[0], Room.beverages[1],
+		Label questionDrink = new Label("Für welches Getränk wollen \nsie diese Option ausführen?");
+		questionDrink.setPadding(new Insets(0, 0, 0, 50));
+		grid.add(questionDrink, 2, 2);
+		ObservableList<String> optionsDrink = FXCollections.observableArrayList(Room.beverages[0], Room.beverages[1],
 				Room.beverages[2], Room.beverages[3], Room.beverages[4], Room.beverages[5]);
-		final ComboBox answerdrink = new ComboBox(optionsdrink);
-		answerdrink.getSelectionModel().select(Room.beverages[0]);
-		grid.add(answerdrink, 3, 2);
-		questiondrink.setVisible(false);
-		answerdrink.setVisible(false);
+		final ComboBox answerDrink = new ComboBox(optionsDrink);
+		answerDrink.getSelectionModel().select(Room.beverages[0]);
+		grid.add(answerDrink, 3, 2);
+		questionDrink.setVisible(false);
+		answerDrink.setVisible(false);
 
 		// question and answer field for the storage room
-		Label questionroom = new Label("Welchen Lagerraum betrifft \ndiese Aktion?");
-		questionroom.setPadding(new Insets(0, 0, 0, 50));
-		grid.add(questionroom, 2, 3, 2, 1);
-		ObservableList<String> optionsroom = FXCollections.observableArrayList("Lagerraum 1", "Lagerraum 2");
-		final ComboBox answerroom = new ComboBox(optionsroom);
-		answerroom.getSelectionModel().select("Lagerraum 1");
-		grid.add(answerroom, 3, 3);
-		questionroom.setVisible(false);
-		answerroom.setVisible(false);
+		Label questionRoom = new Label("Welchen Lagerraum betrifft \ndiese Aktion?");
+		questionRoom.setPadding(new Insets(0, 0, 0, 50));
+		grid.add(questionRoom, 2, 3, 2, 1);
+		ObservableList<String> optionsRoom = FXCollections.observableArrayList("Lagerraum 1", "Lagerraum 2");
+		final ComboBox answerRoom = new ComboBox(optionsRoom);
+		answerRoom.getSelectionModel().select("Lagerraum 1");
+		grid.add(answerRoom, 3, 3);
+		questionRoom.setVisible(false);
+		answerRoom.setVisible(false);
 
 		// label for displaying Orderlist
 		Label orderLabel = new Label();
@@ -138,10 +138,10 @@ public class GUI extends Application {
 		orderLabel.setVisible(false);
 
 		// label for the easter egg
-		Label easteregg = new Label("Richtige Antwort! \n(Wie war nochmal die Frage?)");
-		grid.add(easteregg, 3, 6, 2, 3);
-		easteregg.setPadding(new Insets(0, 0, 0, 0));
-		easteregg.setVisible(false);
+		Label easterEgg = new Label("Richtige Antwort! \n(Wie war nochmal die Frage?)");
+		grid.add(easterEgg, 3, 6, 2, 3);
+		easterEgg.setPadding(new Insets(0, 0, 0, 0));
+		easterEgg.setVisible(false);
 
 		// label for displaying the status (if something went wrong for example)
 		Label status = new Label();
@@ -153,28 +153,28 @@ public class GUI extends Application {
 		// table for displaying inventorylist
 		TableView table = new TableView();
 		table.setEditable(true);
-		TableColumn firstcolumn = new TableColumn("Getränk");
-		firstcolumn.setMinWidth(50);
-		TableColumn secondcolumn = new TableColumn("Verkaufsraum");
-		TableColumn thirdcolumn = new TableColumn("Lagerraum 1");
-		TableColumn forthcolumn = new TableColumn("Lagerraum 2");
-		firstcolumn.setCellValueFactory(new PropertyValueFactory<>("drink"));
-		secondcolumn.setCellValueFactory(new PropertyValueFactory<>("showr"));
-		thirdcolumn.setCellValueFactory(new PropertyValueFactory<>("storer1"));
-		forthcolumn.setCellValueFactory(new PropertyValueFactory<>("storer2"));
+		TableColumn firstColumn = new TableColumn("Getränk");
+		firstColumn.setMinWidth(50);
+		TableColumn secondColumn = new TableColumn("Verkaufsraum");
+		TableColumn thirdColumn = new TableColumn("Lagerraum 1");
+		TableColumn forthColumn = new TableColumn("Lagerraum 2");
+		firstColumn.setCellValueFactory(new PropertyValueFactory<>("drink"));
+		secondColumn.setCellValueFactory(new PropertyValueFactory<>("showr"));
+		thirdColumn.setCellValueFactory(new PropertyValueFactory<>("storer1"));
+		forthColumn.setCellValueFactory(new PropertyValueFactory<>("storer2"));
 		table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-		table.getColumns().addAll(firstcolumn, secondcolumn, thirdcolumn, forthcolumn);
+		table.getColumns().addAll(firstColumn, secondColumn, thirdColumn, forthColumn);
 		grid.add(table, 2, 1, 5, 4);
 		table.setVisible(false);
 
 		// button for file output (just shown for order list)
-		Button fileoutput = new Button("Dateiausgabe");
-		HBox hbfile = new HBox(10);
-		hbfile.setAlignment(Pos.BOTTOM_RIGHT);
-		hbfile.getChildren().add(fileoutput);
-		grid.add(hbfile, 3, 4);
-		hbfile.setVisible(false);
-		fileoutput.setOnAction(new EventHandler<ActionEvent>() {
+		Button fileOutput = new Button("Dateiausgabe");
+		HBox hbFile = new HBox(10);
+		hbFile.setAlignment(Pos.BOTTOM_RIGHT);
+		hbFile.getChildren().add(fileOutput);
+		grid.add(hbFile, 3, 4);
+		hbFile.setVisible(false);
+		fileOutput.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				try {
 					// if pressed, the order list will be created as a file and opened
@@ -198,10 +198,10 @@ public class GUI extends Application {
 		hbEnter.setVisible(false);
 		enter.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				easteregg.setVisible(false);
-				int returnvalue;
+				easterEgg.setVisible(false);
+				int returnValue;
 				// converts the chosen room into the number for the room
-				switch (answerroom.getSelectionModel().getSelectedItem().toString()) {
+				switch (answerRoom.getSelectionModel().getSelectedItem().toString()) {
 				case "Lagerraum 1":
 					room = 1;
 					break;
@@ -210,7 +210,7 @@ public class GUI extends Application {
 					break;
 				}
 				// converts the chosen drink into the number for the drink
-				switch (answerdrink.getSelectionModel().getSelectedItem().toString()) {
+				switch (answerDrink.getSelectionModel().getSelectedItem().toString()) {
 				case "Mineralwasser (still)":
 					drink = 0;
 					break;
@@ -233,17 +233,17 @@ public class GUI extends Application {
 				}
 				// sets the value for quantity (unless it is not an integer)
 				try {
-					quantity = Integer.parseInt(answerquantity.getText());
+					quantity = Integer.parseInt(answerQuantity.getText());
 					if (quantity == 42) {
-						easteregg.setVisible(true);
+						easterEgg.setVisible(true);
 					}
 					// calls the menu method in UserInteraction with the needed values
-					switch (chosenoption) {
+					switch (chosenOption) {
 					// executed if option "Getränk kaufen" is chosen
 					case 1:
 						try {
-							returnvalue = ui.menu(1, room, quantity, drink);
-							switch (returnvalue) {
+							returnValue = ui.menu(1, room, quantity, drink);
+							switch (returnValue) {
 							case -1:
 								status.setVisible(true);
 								status.setText("Der returnvalue wurde nicht gesetzt");
@@ -277,8 +277,8 @@ public class GUI extends Application {
 					// executed if option "Verkaufsraum auffüllen" is chosen
 					case 2:
 						try {
-							returnvalue = ui.menu(2, room, quantity, drink);
-							switch (returnvalue) {
+							returnValue = ui.menu(2, room, quantity, drink);
+							switch (returnValue) {
 							case -1:
 								status.setVisible(true);
 								status.setText("Der returnvalue wurde nicht gesetzt");
@@ -312,8 +312,8 @@ public class GUI extends Application {
 					// executed if option "Aktuellen Lagerraumbestand verändern" is chosen
 					case 3:
 						try {
-							returnvalue = ui.menu(3, room, quantity, drink);
-							switch (returnvalue) {
+							returnValue = ui.menu(3, room, quantity, drink);
+							switch (returnValue) {
 							case -1:
 								status.setVisible(true);
 								status.setText("Der returnvalue wurde nicht gesetzt");
@@ -347,8 +347,8 @@ public class GUI extends Application {
 					// executed if option "Maximalen Lagerraumplatz verändern" is chosen
 					case 4:
 						try {
-							returnvalue = ui.menu(4, room, quantity, drink);
-							switch (returnvalue) {
+							returnValue = ui.menu(4, room, quantity, drink);
+							switch (returnValue) {
 							case -1:
 								status.setVisible(true);
 								status.setText("Der returnvalue wurde nicht gesetzt");
@@ -382,8 +382,8 @@ public class GUI extends Application {
 					// executed if option "Bestellliste für Lieferanten erstellen" is chosen
 					case 5:
 						try {
-							returnvalue = ui.menu(5, room, quantity, drink);
-							switch (returnvalue) {
+							returnValue = ui.menu(5, room, quantity, drink);
+							switch (returnValue) {
 							case -1:
 								status.setVisible(true);
 								status.setText("Der returnvalue wurde nicht gesetzt");
@@ -417,8 +417,8 @@ public class GUI extends Application {
 					// executed if option "Inventarliste anzeigen" is chosen
 					case 6:
 						try {
-							returnvalue = ui.menu(6, room, quantity, drink);
-							switch (returnvalue) {
+							returnValue = ui.menu(6, room, quantity, drink);
+							switch (returnValue) {
 							case -1:
 								status.setVisible(true);
 								status.setText("Der returnvalue wurde nicht gesetzt");
@@ -477,20 +477,20 @@ public class GUI extends Application {
 		option1.setMinWidth(260);
 		option1.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				chosenoption = 1;
-				easteregg.setVisible(false);
-				questiondrink.setVisible(true);
-				answerdrink.setVisible(true);
-				questionquantity.setVisible(true);
-				answerquantity.setVisible(true);
-				questionroom.setVisible(false);
-				answerroom.setVisible(false);
+				chosenOption = 1;
+				easterEgg.setVisible(false);
+				questionDrink.setVisible(true);
+				answerDrink.setVisible(true);
+				questionQuantity.setVisible(true);
+				answerQuantity.setVisible(true);
+				questionRoom.setVisible(false);
+				answerRoom.setVisible(false);
 				hbEnter.setVisible(true);
 				status.setVisible(false);
 				table.setVisible(false);
-				hbfile.setVisible(false);
+				hbFile.setVisible(false);
 				orderLabel.setVisible(false);
-				optiontitle.setText(option1.getText());
+				optionTitle.setText(option1.getText());
 			}
 		});
 
@@ -503,20 +503,20 @@ public class GUI extends Application {
 		option2.setMinWidth(260);
 		option2.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				chosenoption = 2;
-				easteregg.setVisible(false);
-				questionroom.setVisible(true);
-				answerroom.setVisible(true);
-				questiondrink.setVisible(false);
-				answerdrink.setVisible(false);
-				questionquantity.setVisible(false);
-				answerquantity.setVisible(false);
+				chosenOption = 2;
+				easterEgg.setVisible(false);
+				questionRoom.setVisible(true);
+				answerRoom.setVisible(true);
+				questionDrink.setVisible(false);
+				answerDrink.setVisible(false);
+				questionQuantity.setVisible(false);
+				answerQuantity.setVisible(false);
 				hbEnter.setVisible(true);
 				status.setVisible(false);
 				table.setVisible(false);
-				hbfile.setVisible(false);
+				hbFile.setVisible(false);
 				orderLabel.setVisible(false);
-				optiontitle.setText(option2.getText());
+				optionTitle.setText(option2.getText());
 			}
 		});
 
@@ -528,20 +528,20 @@ public class GUI extends Application {
 		option3.setMinWidth(260);
 		option3.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				chosenoption = 3;
-				easteregg.setVisible(false);
-				questiondrink.setVisible(true);
-				answerdrink.setVisible(true);
-				questionquantity.setVisible(true);
-				answerquantity.setVisible(true);
-				questionroom.setVisible(true);
-				answerroom.setVisible(true);
+				chosenOption = 3;
+				easterEgg.setVisible(false);
+				questionDrink.setVisible(true);
+				answerDrink.setVisible(true);
+				questionQuantity.setVisible(true);
+				answerQuantity.setVisible(true);
+				questionRoom.setVisible(true);
+				answerRoom.setVisible(true);
 				hbEnter.setVisible(true);
 				status.setVisible(false);
 				table.setVisible(false);
-				hbfile.setVisible(false);
+				hbFile.setVisible(false);
 				orderLabel.setVisible(false);
-				optiontitle.setText(option3.getText());
+				optionTitle.setText(option3.getText());
 			}
 		});
 
@@ -553,20 +553,20 @@ public class GUI extends Application {
 		option4.setMinWidth(260);
 		option4.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				chosenoption = 4;
-				easteregg.setVisible(false);
-				questiondrink.setVisible(true);
-				answerdrink.setVisible(true);
-				questionquantity.setVisible(true);
-				answerquantity.setVisible(true);
-				questionroom.setVisible(true);
-				answerroom.setVisible(true);
+				chosenOption = 4;
+				easterEgg.setVisible(false);
+				questionDrink.setVisible(true);
+				answerDrink.setVisible(true);
+				questionQuantity.setVisible(true);
+				answerQuantity.setVisible(true);
+				questionRoom.setVisible(true);
+				answerRoom.setVisible(true);
 				hbEnter.setVisible(true);
 				status.setVisible(false);
 				table.setVisible(false);
-				hbfile.setVisible(false);
+				hbFile.setVisible(false);
 				orderLabel.setVisible(false);
-				optiontitle.setText(option4.getText());
+				optionTitle.setText(option4.getText());
 			}
 		});
 
@@ -579,18 +579,18 @@ public class GUI extends Application {
 		option5.setMinWidth(260);
 		option5.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				chosenoption = 5;
-				easteregg.setVisible(false);
-				questiondrink.setVisible(false);
-				answerdrink.setVisible(false);
-				questionquantity.setVisible(false);
-				answerquantity.setVisible(false);
-				questionroom.setVisible(false);
-				answerroom.setVisible(false);
+				chosenOption = 5;
+				easterEgg.setVisible(false);
+				questionDrink.setVisible(false);
+				answerDrink.setVisible(false);
+				questionQuantity.setVisible(false);
+				answerQuantity.setVisible(false);
+				questionRoom.setVisible(false);
+				answerRoom.setVisible(false);
 				hbEnter.setVisible(false);
 				status.setVisible(false);
 				table.setVisible(false);
-				hbfile.setVisible(true);
+				hbFile.setVisible(true);
 				orderLabel.setVisible(true);
 				int[] missing = { 0, 0, 0, 0, 0, 0 };
 				try {
@@ -604,7 +604,7 @@ public class GUI extends Application {
 						+ "Insgesamt werden noch " + missing[3] + " Kästen Orangensaft benötigt. \n"
 						+ "Insgesamt werden noch " + missing[4] + " Kästen Limonade benötigt. \n"
 						+ "Insgesamt werden noch " + missing[5] + " Kästen Bier benötigt.");
-				optiontitle.setText(option5.getText());
+				optionTitle.setText(option5.getText());
 			}
 		});
 
@@ -617,17 +617,17 @@ public class GUI extends Application {
 		option6.setMinWidth(260);
 		option6.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				chosenoption = 6;
-				easteregg.setVisible(false);
+				chosenOption = 6;
+				easterEgg.setVisible(false);
 				table.setVisible(true);
-				questiondrink.setVisible(false);
-				answerdrink.setVisible(false);
-				questionquantity.setVisible(false);
-				answerquantity.setVisible(false);
-				questionroom.setVisible(false);
-				answerroom.setVisible(false);
+				questionDrink.setVisible(false);
+				answerDrink.setVisible(false);
+				questionQuantity.setVisible(false);
+				answerQuantity.setVisible(false);
+				questionRoom.setVisible(false);
+				answerRoom.setVisible(false);
 				hbEnter.setVisible(false);
-				hbfile.setVisible(false);
+				hbFile.setVisible(false);
 				orderLabel.setVisible(false);
 				int[][] inventory = ui.getInventoryList();
 
@@ -640,7 +640,7 @@ public class GUI extends Application {
 				table.setItems(data);
 
 				status.setVisible(false);
-				optiontitle.setText(option6.getText());
+				optionTitle.setText(option6.getText());
 			}
 		});
 
