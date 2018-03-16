@@ -12,6 +12,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
@@ -21,6 +22,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -62,8 +65,7 @@ public class GUI extends Application {
 
 	// creates the needed objects
 	UserInteraction ui = new UserInteraction();
-	// these are the values that UserInteraction gets, when called by
-	// menu(int,int,int,int);
+	// these are the values that the UserInteraction-method "menu" gets, when called
 	int chosenoption = 0;
 	int room = 0;
 	int drink = 0;
@@ -82,7 +84,7 @@ public class GUI extends Application {
 		// structure)
 		GridPane grid = new GridPane();
 		grid.setHgap(20);
-		grid.setVgap(20);
+		grid.setVgap(21);
 		grid.setPadding(new Insets(20, 20, 20, 20));
 
 		// title of the menu
@@ -132,7 +134,7 @@ public class GUI extends Application {
 		// label for displaying Orderlist
 		Label orderLabel = new Label();
 		orderLabel.setPadding(new Insets(0, 0, 0, 50));
-		grid.add(orderLabel, 2, 1, 2, 4);
+		grid.add(orderLabel, 2, 1, 3, 4);
 		orderLabel.setVisible(false);
 
 		// label for displaying the status (if something went wrong for example)
@@ -227,7 +229,7 @@ public class GUI extends Application {
 
 					// calls the menu method in UserInteraction with the needed values
 					switch (chosenoption) {
-					//executed if option "Getränk kaufen" is chosen
+					// executed if option "Getränk kaufen" is chosen
 					case 1:
 						try {
 							returnvalue = ui.menu(1, room, quantity, drink);
@@ -262,7 +264,7 @@ public class GUI extends Application {
 							e1.printStackTrace();
 						}
 						break;
-					//executed if option "Verkaufsraum auffüllen" is chosen
+					// executed if option "Verkaufsraum auffüllen" is chosen
 					case 2:
 						try {
 							returnvalue = ui.menu(2, room, quantity, drink);
@@ -297,7 +299,7 @@ public class GUI extends Application {
 							e1.printStackTrace();
 						}
 						break;
-					//executed if option "Aktuellen Lagerraumbestand verändern" is chosen
+					// executed if option "Aktuellen Lagerraumbestand verändern" is chosen
 					case 3:
 						try {
 							returnvalue = ui.menu(3, room, quantity, drink);
@@ -332,7 +334,7 @@ public class GUI extends Application {
 							e1.printStackTrace();
 						}
 						break;
-					//executed if option "Maximalen Lagerraumplatz verändern" is chosen
+					// executed if option "Maximalen Lagerraumplatz verändern" is chosen
 					case 4:
 						try {
 							returnvalue = ui.menu(4, room, quantity, drink);
@@ -367,7 +369,7 @@ public class GUI extends Application {
 							e1.printStackTrace();
 						}
 						break;
-					//executed if option "Bestellliste für Lieferanten erstellen" is chosen
+					// executed if option "Bestellliste für Lieferanten erstellen" is chosen
 					case 5:
 						try {
 							returnvalue = ui.menu(5, room, quantity, drink);
@@ -402,7 +404,7 @@ public class GUI extends Application {
 							e1.printStackTrace();
 						}
 						break;
-					//executed if option "Inventarliste anzeigen lassen" is chosen
+					// executed if option "Inventarliste anzeigen lassen" is chosen
 					case 6:
 						try {
 							returnvalue = ui.menu(6, room, quantity, drink);
@@ -437,7 +439,7 @@ public class GUI extends Application {
 							e1.printStackTrace();
 						}
 						break;
-					//executed if option "Programm beenden" is chosen
+					// executed if option "Programm beenden" is chosen
 					case 7:
 						try {
 							ui.menu(7, room, quantity, drink);
@@ -453,11 +455,16 @@ public class GUI extends Application {
 			}
 		});
 
-		//the menu button for "Getränke kaufen"
-		Button option1 = new Button("Getränke kaufen");
+		//picture
+		Image imageChange = new Image(getClass().getResourceAsStream("mehr_oder_weniger.png"));
+		
+		// the menu button for "Getränke kaufen"
+		Image imageBottle = new Image(getClass().getResourceAsStream("Bottle_by_Rones.png"));		
+		Button option1 = new Button("Getränke kaufen", new ImageView(imageBottle));
+		option1.setContentDisplay(ContentDisplay.LEFT);
 		grid.add(option1, 0, 1);
 		option1.setMinHeight(25);
-		option1.setMinWidth(230);
+		option1.setMinWidth(260);
 		option1.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				System.out.println("Option 1 wird ausgeführt...");
@@ -475,11 +482,13 @@ public class GUI extends Application {
 			}
 		});
 
-		//the menu button for "Verkaufsraum auffüllen"
-		Button option2 = new Button("Verkaufsraum auffüllen");
+		// the menu button for "Verkaufsraum auffüllen"
+		Image imageArrow = new Image(getClass().getResourceAsStream("Pfeil.png"));
+		Button option2 = new Button("Verkaufsraum auffüllen", new ImageView(imageArrow));
+		option2.setContentDisplay(ContentDisplay.LEFT);
 		grid.add(option2, 0, 2);
 		option2.setMinHeight(25);
-		option2.setMinWidth(230);
+		option2.setMinWidth(260);
 		option2.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				System.out.println("Option 2 wird ausgeführt...");
@@ -495,11 +504,12 @@ public class GUI extends Application {
 			}
 		});
 
-		//the menu button for "Aktuellen Lagerraumbestand verändern"
-		Button option3 = new Button("Aktuellen Lagerraumbestand verändern");
+		// the menu button for "Aktuellen Lagerraumbestand verändern"
+		Button option3 = new Button("Aktuellen Lagerraumbestand verändern", new ImageView(imageChange));
+		option3.setContentDisplay(ContentDisplay.LEFT);
 		grid.add(option3, 0, 3);
 		option3.setMinHeight(25);
-		option3.setMinWidth(230);
+		option3.setMinWidth(260);
 		option3.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				System.out.println("Option 3 wird ausgeführt...");
@@ -519,11 +529,12 @@ public class GUI extends Application {
 			}
 		});
 
-		//the menu button for "Maximalen Lagerraumplatz verändern"
-		Button option4 = new Button("Maximalen Lagerraumplatz verändern");
+		// the menu button for "Maximalen Lagerraumplatz verändern"
+		Button option4 = new Button("Maximalen Lagerraumplatz verändern", new ImageView(imageChange));
+		option4.setContentDisplay(ContentDisplay.LEFT);
 		grid.add(option4, 0, 4);
 		option4.setMinHeight(25);
-		option4.setMinWidth(230);
+		option4.setMinWidth(260);
 		option4.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				System.out.println("Option 4 wird ausgeführt...");
@@ -543,11 +554,13 @@ public class GUI extends Application {
 			}
 		});
 
-		//the menu button for Bestellliste für Lieferanten erstellen"
-		Button option5 = new Button("Bestellliste für Lieferanten erstellen");
+		// the menu button for Bestellliste für Lieferanten erstellen"
+		Image imageTruck = new Image(getClass().getResourceAsStream("PixelTruck.png"));
+		Button option5 = new Button("Bestellliste für Lieferanten erstellen", new ImageView(imageTruck));
+		option5.setContentDisplay(ContentDisplay.LEFT);
 		grid.add(option5, 0, 5);
 		option5.setMinHeight(25);
-		option5.setMinWidth(230);
+		option5.setMinWidth(260);
 		option5.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				System.out.println("Option 5 wird ausgeführt...");
@@ -579,11 +592,13 @@ public class GUI extends Application {
 			}
 		});
 
-		//the menu button for "Inventarliste anzeigen lassen"
-		Button option6 = new Button("Inventarliste anzeigen lassen");
+		// the menu button for "Inventarliste anzeigen lassen"
+		Image imageBucket = new Image(getClass().getResourceAsStream("bucket-list.png"));
+		Button option6 = new Button("Inventarliste anzeigen lassen", new ImageView(imageBucket));
+		option6.setContentDisplay(ContentDisplay.LEFT);
 		grid.add(option6, 0, 6);
 		option6.setMinHeight(25);
-		option6.setMinWidth(230);
+		option6.setMinWidth(260);
 		option6.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				System.out.println("Option 6 wird ausgeführt...");
@@ -613,11 +628,13 @@ public class GUI extends Application {
 			}
 		});
 
-		//the menu button for "Programm beenden"
-		Button option7 = new Button("Programm beenden");
+		// the menu button for "Programm beenden"
+		Image imageStop = new Image(getClass().getResourceAsStream("weißesXAufRotemKreis.png"));
+		Button option7 = new Button("Programm beenden", new ImageView(imageStop));
+		option7.setContentDisplay(ContentDisplay.LEFT);
 		grid.add(option7, 0, 7);
 		option7.setMinHeight(25);
-		option7.setMinWidth(230);
+		option7.setMinWidth(260);
 		option7.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				System.out.println("Option 7 wird ausgeführt...");
@@ -625,11 +642,10 @@ public class GUI extends Application {
 			}
 		});
 
-		//line for separating the left from the right side
+		// line for separating the left from the right side
 		Line line1 = new Line(20, 20, 20, 385);
 		grid.add(line1, 1, 0, 1, 8);
 		line1.getStrokeDashArray().addAll(25d, 10d);
-
 
 		Scene scene = new Scene(grid, 800, 400);
 		primaryStage.setScene(scene);
