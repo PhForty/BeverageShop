@@ -13,29 +13,39 @@ import java.util.List;
 
 /**
  * this class contains the logic. It knows the show room and the store rooms
- * interacts with them. It furthermore can create an inventory list and an order list
+ * interacts with them. It furthermore can create an inventory list and an order
+ * list. It stands between the GUI and the rooms.
  * 
  * @author Philipp Fortmann
- *
+ * @see GUI, ShowRoom, StorageRoom
  */
 public class UserInteraction {
 
-	Storageroom storer1 = new Storageroom(1);
-	Storageroom storer2 = new Storageroom(2);
-	Showroom showr = new Showroom();
-	public final String[] beverages = { "Mineralwasser (still)", "Mineralwasser (mit K.)", "Apfelsaft", "Orangensaft",
-			"Limonade", "Bier" };
+	StorageRoom storer1 = new StorageRoom(1);
+	StorageRoom storer2 = new StorageRoom(2);
+	ShowRoom showr = new ShowRoom();
 
 	/**
 	 * this method executes the chosen option from the class GUI
 	 * 
-	 * @param input the chosen menu option. an value between 1 and 7 is expected
-	 * @param room the storage room number, ignored, when room number is not needed for action
-	 * @param quantity the quantity for which the action will be performed, ignored when not needed 
-	 * @param drink the drink for which the action will be performed, ignored when not needed
-	 * @return returns 0-4, depending whether the execution was succesfull or not. 0 = something went really wrong; 1= succesfull;
-	 * 			2 = amount is not high enough; 3 = can't make amount that high; 4 = the maximum space can't be lowered that much
-	 * @throws IOException needed, because creation of file might throw this error
+	 * @param input
+	 *            the chosen menu option. an value between 1 and 7 is expected
+	 * @param room
+	 *            the storage room number, ignored, when room number is not needed
+	 *            for action
+	 * @param quantity
+	 *            the quantity for which the action will be performed, ignored when
+	 *            not needed
+	 * @param drink
+	 *            the drink for which the action will be performed, ignored when not
+	 *            needed
+	 * @return returns 0-4, depending whether the execution was succesfull or not. 0
+	 *         = something went really wrong; 1= succesfull; 2 = amount is not high
+	 *         enough; 3 = can't make amount that high; 4 = the maximum space can't
+	 *         be lowered that much
+	 * @throws IOException
+	 *             needed, because creation of file might throw this error
+	 * @see GUI, {@link #getOrderList(int)}, {@link #getInventoryList()}
 	 */
 	public int menu(int input, int room, int quantity, int drink) throws IOException {
 		int returnvalue = 0;
@@ -45,7 +55,7 @@ public class UserInteraction {
 
 		// menu option "Buy drinks"
 		case 1:
-			returnvalue = showr.buydrink(drink, quantity);
+			returnvalue = showr.sellDrink(drink, quantity);
 			break;
 		// menu option "Fill showroom"
 		case 2:
@@ -79,7 +89,7 @@ public class UserInteraction {
 		// menu option "change max storageroom space"
 		case 4:
 			// increases/ decreases max in storageroom 1/2, depending on option chosen
-			if (quantity > 0) {
+			if (quantity >= 0) {
 				if (room == 1) {
 					returnvalue = storer1.increaseMax(drink, quantity);
 				} else {
@@ -100,12 +110,12 @@ public class UserInteraction {
 			getOrderList(1);
 			returnvalue = 1;
 
-		// menu option "create Inventorylist"
+			// menu option "create Inventorylist"
 		case 6:
 			getInventoryList();
 			returnvalue = 1;
 
-		// menu option "exit program"
+			// menu option "exit program"
 		case 7:
 			endProgramm();
 			break;
@@ -114,46 +124,48 @@ public class UserInteraction {
 	}
 
 	/**
-	 * outputs the orderlist. As an Integer-Array and optionally as a .txt-file.
-	 * The orderlist is the added difference(max-amount) for all products in all rooms where
-	 * max>amount
+	 * outputs the orderlist. As an Integer-Array and optionally as a .txt-file. The
+	 * orderlist is the added difference(max-amount) for all products in all rooms
+	 * where max>amount
 	 * 
-	 * @param output defines whether file is created or not. If it is "2" a file is created
-	 * @return returns an Integer-Array, filled with the missing amounts for everydrink, over all rooms
-	 * @throws IOException needed, because creation of file might throw this exception
+	 * @param output
+	 *            defines whether file is created or not. If it is "2" a file is
+	 *            created
+	 * @return returns an Integer-Array, filled with the missing amounts for
+	 *         everydrink, over all rooms
+	 * @throws IOException
+	 *             needed, because creation of file might throw this exception
 	 */
 	public int[] getOrderList(int output) throws IOException {
 		Room roomobj = showr;
-		int[] missing = {0,0,0,0,0,0};
+		int[] missing = { 0, 0, 0, 0, 0, 0 };
 		// determines the values for the missing beverages over all rooms
-		for (int i = 0; i < 3; i++) {
-			switch (i) {
-			case 0:
-				break;
-			case 1:
-				roomobj = storer1;
-				break;
-			case 2:
-				roomobj = storer2;
-				break;
+		for (int j = 0; j < 3; j++) {
+			for (int i = 0; i < 6; i++) {
+				switch (j) {
+				case 0:
+					break;
+				case 1:
+					roomobj = storer1;
+					break;
+				case 2:
+					roomobj = storer2;
+					break;
+				}
+				missing[i] += roomobj.getMax(i) - roomobj.getAmount(i);
 			}
-			missing[0] += roomobj.getMax(0) - roomobj.getAmount(0);
-			missing[1] += roomobj.getMax(1) - roomobj.getAmount(1);
-			missing[2] += roomobj.getMax(2) - roomobj.getAmount(2);
-			missing[3] += roomobj.getMax(3) - roomobj.getAmount(3);
-			missing[4] += roomobj.getMax(4) - roomobj.getAmount(4);
-			missing[5] += roomobj.getMax(5) - roomobj.getAmount(5);		
 		}
 		// output to file
 		if (output == 2) {
-			//creates the sentences
+			// creates the sentences
+
 			String s1 = "Insgesamt werden noch " + missing[0] + " Kästen Wasser (still) benötigt.";
 			String s2 = "Insgesamt werden noch " + missing[1] + " Kästen Wasser (mit Kohlensäure) benötigt.";
 			String s3 = "Insgesamt werden noch " + missing[2] + " Kästen Apfelsaft benötigt.";
 			String s4 = "Insgesamt werden noch " + missing[3] + " Kästen Orangensaft benötigt.";
 			String s5 = "Insgesamt werden noch " + missing[4] + " Kästen Limonade benötigt.";
 			String s6 = "Insgesamt werden noch " + missing[5] + " Kästen Bier benötigt.";
-			
+
 			// creates timestamp
 			Date date = new Date();
 			DateFormat dateFormat = new SimpleDateFormat("HH:mm - dd.MM.yy");
@@ -174,7 +186,6 @@ public class UserInteraction {
 			ProcessBuilder pb = new ProcessBuilder("Notepad.exe", filePath);
 			pb.start();
 
-			System.out.println("Die Datei wurde geschrieben.");
 		}
 		return missing;
 	}
@@ -182,28 +193,29 @@ public class UserInteraction {
 	/**
 	 * outputs the list for all amounts, of all drinks, for every room individually
 	 * 
-	 * @return the result is stored in an 2D-Array. The columns are for the rooms, the rows for the drinkamount
+	 * @return the result is stored in an 2D-Array. The columns are for the rooms,
+	 *         the rows for the drinkamount
 	 */
 	public int[][] getInventoryList() {
-		
-		//String Array for [room][drinkamount]
+
+		// String Array for [room][drinkamount]
 		int[][] inventory = new int[3][6];
-		
-		//iterates over the rooms
-		for(int i = 0; i<3 ; i++) {
-			//iterates over the drinks
-			for(int j = 0; j<6; j++) {
-				//sets the specific values, for every combination of room and drink
+
+		// iterates over the rooms
+		for (int i = 0; i < 3; i++) {
+			// iterates over the drinks
+			for (int j = 0; j < 6; j++) {
+				// sets the specific values, for every combination of room and drink
 				switch (i) {
-					case 0:
-						inventory[i][j] = showr.getAmount(j);
-						break;
-					case 1:
-						inventory[i][j] = storer1.getAmount(j);
-						break;
-					case 2:
-						inventory[i][j] = storer2.getAmount(j);
-						break;
+				case 0:
+					inventory[i][j] = showr.getAmount(j);
+					break;
+				case 1:
+					inventory[i][j] = storer1.getAmount(j);
+					break;
+				case 2:
+					inventory[i][j] = storer2.getAmount(j);
+					break;
 				}
 			}
 		}
@@ -221,7 +233,9 @@ public class UserInteraction {
 	 * constructs a new UserInteraction object, starts the program
 	 * 
 	 * @param args
-	 * @throws IOException needed, because creation of file in getInventoryList() throws IOException
+	 * @throws IOException
+	 *             needed, because creation of file in getInventoryList() throws
+	 *             IOException
 	 */
 	public static void main(String[] args) throws IOException {
 		UserInteraction ui = new UserInteraction();

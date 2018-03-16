@@ -34,10 +34,10 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-//TODO evt. kleine Logos für die jeweiligen MenüOptionen erstellen
 /**
- * this class is the GUI, it takes the user input and processes it, by giving it
- * to UserInteraction, in an specified format
+ * The GUI displays the programm with its options, takes the user input and
+ * processes it, by giving it to UserInteraction, in an specified format.
+ * Finally it displays the result again
  * 
  * @author Philipp Fortmann
  *
@@ -78,7 +78,7 @@ public class GUI extends Application {
 	 */
 	public void start(Stage primaryStage) {
 
-		primaryStage.setTitle("Getränkemarktverwaltungssoftwareprogrammmenü");
+		primaryStage.setTitle("Getränkemarktverkäuferverwaltungssoftwareprogrammmenü");
 
 		// constructs the grid, that is layed over the GUI (to have a table-like
 		// structure)
@@ -112,18 +112,18 @@ public class GUI extends Application {
 		Label questiondrink = new Label("Für welches Getränk wollen \nsie diese Option ausführen?");
 		questiondrink.setPadding(new Insets(0, 0, 0, 50));
 		grid.add(questiondrink, 2, 2);
-		ObservableList<String> optionsdrink = FXCollections.observableArrayList("Mineralwasser (still)",
-				"Mineralwasser (mit K.)", "Apfelsaft", "Orangensaft", "Limonade", "Bier");
+		ObservableList<String> optionsdrink = FXCollections.observableArrayList(Room.beverages[0], Room.beverages[1],
+				Room.beverages[2], Room.beverages[3], Room.beverages[4], Room.beverages[5]);
 		final ComboBox answerdrink = new ComboBox(optionsdrink);
-		answerdrink.getSelectionModel().select("Mineralwasser (still)");
+		answerdrink.getSelectionModel().select(Room.beverages[0]);
 		grid.add(answerdrink, 3, 2);
 		questiondrink.setVisible(false);
 		answerdrink.setVisible(false);
 
 		// question and answer field for the storage room
-		Label questionroom = new Label("Für welchen Lagerraum soll \ndiese Aktion ausgeführt werden?");
+		Label questionroom = new Label("Welchen Lagerraum betrifft \ndiese Aktion?");
 		questionroom.setPadding(new Insets(0, 0, 0, 50));
-		grid.add(questionroom, 2, 3);
+		grid.add(questionroom, 2, 3, 2, 1);
 		ObservableList<String> optionsroom = FXCollections.observableArrayList("Lagerraum 1", "Lagerraum 2");
 		final ComboBox answerroom = new ComboBox(optionsroom);
 		answerroom.getSelectionModel().select("Lagerraum 1");
@@ -133,20 +133,28 @@ public class GUI extends Application {
 
 		// label for displaying Orderlist
 		Label orderLabel = new Label();
-		orderLabel.setPadding(new Insets(0, 0, 0, 50));
+		orderLabel.setPadding(new Insets(0, 0, 0, 30));
 		grid.add(orderLabel, 2, 1, 3, 4);
 		orderLabel.setVisible(false);
+
+		// label for the easter egg
+		Label easteregg = new Label("Richtige Antwort! \n(Wie war nochmal die Frage?)");
+		grid.add(easteregg, 3, 6, 2, 3);
+		easteregg.setPadding(new Insets(0, 0, 0, 0));
+		easteregg.setVisible(false);
 
 		// label for displaying the status (if something went wrong for example)
 		Label status = new Label();
 		grid.add(status, 2, 4, 2, 2);
+		status.setFont(new Font(12));
+		status.setStyle("-fx-font-weight: bold");
 		status.setVisible(false);
 
 		// table for displaying inventorylist
 		TableView table = new TableView();
 		table.setEditable(true);
 		TableColumn firstcolumn = new TableColumn("Getränk");
-		firstcolumn.setPrefWidth(200);
+		firstcolumn.setMinWidth(50);
 		TableColumn secondcolumn = new TableColumn("Verkaufsraum");
 		TableColumn thirdcolumn = new TableColumn("Lagerraum 1");
 		TableColumn forthcolumn = new TableColumn("Lagerraum 2");
@@ -171,7 +179,6 @@ public class GUI extends Application {
 				try {
 					// if pressed, the order list will be created as a file and opened
 					ui.getOrderList(2);
-					// TODO display the path where the file is
 					status.setVisible(true);
 					String path = System.getProperty("user.home")
 							+ "\\Documents\n\\BA-RM\\DuI Algorithmen\\Projekt\\Bestellliste.txt";
@@ -191,6 +198,7 @@ public class GUI extends Application {
 		hbEnter.setVisible(false);
 		enter.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
+				easteregg.setVisible(false);
 				int returnvalue;
 				// converts the chosen room into the number for the room
 				switch (answerroom.getSelectionModel().getSelectedItem().toString()) {
@@ -226,7 +234,9 @@ public class GUI extends Application {
 				// sets the value for quantity (unless it is not an integer)
 				try {
 					quantity = Integer.parseInt(answerquantity.getText());
-
+					if (quantity == 42) {
+						easteregg.setVisible(true);
+					}
 					// calls the menu method in UserInteraction with the needed values
 					switch (chosenoption) {
 					// executed if option "Getränk kaufen" is chosen
@@ -404,7 +414,7 @@ public class GUI extends Application {
 							e1.printStackTrace();
 						}
 						break;
-					// executed if option "Inventarliste anzeigen lassen" is chosen
+					// executed if option "Inventarliste anzeigen" is chosen
 					case 6:
 						try {
 							returnvalue = ui.menu(6, room, quantity, drink);
@@ -455,24 +465,26 @@ public class GUI extends Application {
 			}
 		});
 
-		//picture
+		// picture for changing amount/ max in storage room
 		Image imageChange = new Image(getClass().getResourceAsStream("mehr_oder_weniger.png"));
-		
+
 		// the menu button for "Getränke kaufen"
-		Image imageBottle = new Image(getClass().getResourceAsStream("Bottle_by_Rones.png"));		
-		Button option1 = new Button("Getränke kaufen", new ImageView(imageBottle));
+		Image imageBottle = new Image(getClass().getResourceAsStream("Bottle_by_Rones.png"));
+		Button option1 = new Button("Getränke verkaufen", new ImageView(imageBottle));
 		option1.setContentDisplay(ContentDisplay.LEFT);
 		grid.add(option1, 0, 1);
 		option1.setMinHeight(25);
 		option1.setMinWidth(260);
 		option1.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				System.out.println("Option 1 wird ausgeführt...");
 				chosenoption = 1;
+				easteregg.setVisible(false);
 				questiondrink.setVisible(true);
 				answerdrink.setVisible(true);
 				questionquantity.setVisible(true);
 				answerquantity.setVisible(true);
+				questionroom.setVisible(false);
+				answerroom.setVisible(false);
 				hbEnter.setVisible(true);
 				status.setVisible(false);
 				table.setVisible(false);
@@ -491,10 +503,14 @@ public class GUI extends Application {
 		option2.setMinWidth(260);
 		option2.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				System.out.println("Option 2 wird ausgeführt...");
 				chosenoption = 2;
+				easteregg.setVisible(false);
 				questionroom.setVisible(true);
 				answerroom.setVisible(true);
+				questiondrink.setVisible(false);
+				answerdrink.setVisible(false);
+				questionquantity.setVisible(false);
+				answerquantity.setVisible(false);
 				hbEnter.setVisible(true);
 				status.setVisible(false);
 				table.setVisible(false);
@@ -512,8 +528,8 @@ public class GUI extends Application {
 		option3.setMinWidth(260);
 		option3.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				System.out.println("Option 3 wird ausgeführt...");
 				chosenoption = 3;
+				easteregg.setVisible(false);
 				questiondrink.setVisible(true);
 				answerdrink.setVisible(true);
 				questionquantity.setVisible(true);
@@ -537,8 +553,8 @@ public class GUI extends Application {
 		option4.setMinWidth(260);
 		option4.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				System.out.println("Option 4 wird ausgeführt...");
 				chosenoption = 4;
+				easteregg.setVisible(false);
 				questiondrink.setVisible(true);
 				answerdrink.setVisible(true);
 				questionquantity.setVisible(true);
@@ -563,8 +579,8 @@ public class GUI extends Application {
 		option5.setMinWidth(260);
 		option5.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				System.out.println("Option 5 wird ausgeführt...");
 				chosenoption = 5;
+				easteregg.setVisible(false);
 				questiondrink.setVisible(false);
 				answerdrink.setVisible(false);
 				questionquantity.setVisible(false);
@@ -592,17 +608,17 @@ public class GUI extends Application {
 			}
 		});
 
-		// the menu button for "Inventarliste anzeigen lassen"
+		// the menu button for "Inventarliste anzeigen"
 		Image imageBucket = new Image(getClass().getResourceAsStream("bucket-list.png"));
-		Button option6 = new Button("Inventarliste anzeigen lassen", new ImageView(imageBucket));
+		Button option6 = new Button("Inventarliste anzeigen", new ImageView(imageBucket));
 		option6.setContentDisplay(ContentDisplay.LEFT);
 		grid.add(option6, 0, 6);
 		option6.setMinHeight(25);
 		option6.setMinWidth(260);
 		option6.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				System.out.println("Option 6 wird ausgeführt...");
 				chosenoption = 6;
+				easteregg.setVisible(false);
 				table.setVisible(true);
 				questiondrink.setVisible(false);
 				answerdrink.setVisible(false);
@@ -615,10 +631,10 @@ public class GUI extends Application {
 				orderLabel.setVisible(false);
 				int[][] inventory = ui.getInventoryList();
 
-				ObservableList<tabledata> data = FXCollections.observableArrayList();
+				ObservableList<TableData> data = FXCollections.observableArrayList();
 
 				for (int i = 0; i < 6; i++) {
-					data.add(new tabledata(i, inventory[0][i], inventory[1][i], inventory[2][i]));
+					data.add(new TableData(i, inventory[0][i], inventory[1][i], inventory[2][i]));
 				}
 
 				table.setItems(data);
@@ -637,7 +653,6 @@ public class GUI extends Application {
 		option7.setMinWidth(260);
 		option7.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				System.out.println("Option 7 wird ausgeführt...");
 				ui.endProgramm();
 			}
 		});
@@ -647,9 +662,9 @@ public class GUI extends Application {
 		grid.add(line1, 1, 0, 1, 8);
 		line1.getStrokeDashArray().addAll(25d, 10d);
 
-		Scene scene = new Scene(grid, 800, 400);
+		Scene scene = new Scene(grid, 800, 410);
 		primaryStage.setScene(scene);
-
+		primaryStage.setResizable(false);
 		primaryStage.show();
 	}
 }
