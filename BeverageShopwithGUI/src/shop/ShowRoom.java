@@ -42,7 +42,7 @@ public class ShowRoom extends Room {
 		// check if drink exists
 		if (drink >= 0 && drink < 6) {
 			// check if showroom has enough left
-			if (this.getAmount(drink) >= quantity) {
+			if (this.getAmount(drink) >= quantity && quantity >= 0) {
 				this.decreaseAmount(drink, quantity);
 				return 1;
 			} else {

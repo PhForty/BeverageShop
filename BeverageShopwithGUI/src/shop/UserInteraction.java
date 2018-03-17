@@ -39,8 +39,8 @@ public class UserInteraction {
 	 * @param drink
 	 *            the drink for which the action will be performed, ignored when not
 	 *            needed
-	 * @return returns 0-4, depending whether the execution was succesfull or not. 0
-	 *         = something went really wrong; 1= succesfull; 2 = amount is not high
+	 * @return returns 0-4, depending whether the execution was successful or not. 0
+	 *         = something went really wrong; 1= successful; 2 = amount is not high
 	 *         enough; 3 = can't make amount that high; 4 = the maximum space can't
 	 *         be lowered that much
 	 * @throws IOException
@@ -59,13 +59,8 @@ public class UserInteraction {
 			break;
 		// menu option "Fill showroom"
 		case 2:
-			if (room == 1) {
-				showr.fillShowRoom(room, storer1, storer2);
-				returnvalue = 1;
-			} else if (room == 2) {
-				showr.fillShowRoom(room, storer1, storer2);
-				returnvalue = 1;
-			}
+			showr.fillShowRoom(room, storer1, storer2);
+			returnvalue = 1;
 			break;
 
 		// menu option "change current storageroom space"
@@ -227,17 +222,5 @@ public class UserInteraction {
 	 */
 	public void endProgramm() {
 		System.exit(0);
-	}
-
-	/**
-	 * constructs a new UserInteraction object, starts the program
-	 * 
-	 * @param args
-	 * @throws IOException
-	 *             needed, because creation of file in getInventoryList() throws
-	 *             IOException
-	 */
-	public static void main(String[] args) throws IOException {
-		UserInteraction ui = new UserInteraction();
 	}
 }

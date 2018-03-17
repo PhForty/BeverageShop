@@ -40,6 +40,7 @@ import javafx.stage.Stage;
  * Finally it displays the result again
  * 
  * @author Philipp Fortmann
+ * @see UserInteraction
  *
  */
 public class GUI extends Application {
@@ -468,7 +469,7 @@ public class GUI extends Application {
 		// picture for changing amount/ max in storage room
 		Image imageChange = new Image(getClass().getResourceAsStream("mehr_oder_weniger.png"));
 
-		// the menu button for "Getränke kaufen"
+		// the menu button for "Getränke verkaufen"
 		Image imageBottle = new Image(getClass().getResourceAsStream("Bottle_by_Rones.png"));
 		Button option1 = new Button("Getränke verkaufen", new ImageView(imageBottle));
 		option1.setContentDisplay(ContentDisplay.LEFT);
