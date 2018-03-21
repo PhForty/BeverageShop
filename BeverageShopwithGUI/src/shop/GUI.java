@@ -35,7 +35,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
- * The GUI displays the programm with its options, takes the user input and
+ * The GUI displays the program with its options, takes the user input and
  * processes it, by giving it to UserInteraction, in an specified format.
  * Finally it displays the result again
  * 
@@ -80,7 +80,8 @@ public class GUI extends Application {
 	public void start(Stage primaryStage) {
 
 		primaryStage.setTitle("Getränkemarktverkäuferverwaltungssoftwareprogrammmenü");
-
+		primaryStage.getIcons().add(new Image("/pictures/WHAPlogo.jpg"));
+		
 		// constructs the grid, that is layed over the GUI (to have a table-like
 		// structure)
 		GridPane grid = new GridPane();
@@ -99,7 +100,7 @@ public class GUI extends Application {
 		grid.add(optionTitle, 2, 0, 2, 1);
 
 		// question and answer field for the quantity
-		Label questionQuantity = new Label("Für wieviele Kästen wollen \nsie diese Option ausführen?");
+		Label questionQuantity = new Label("Für wieviele Kästen wollen \nSie diese Option ausführen?");
 		questionQuantity.setPadding(new Insets(0, 0, 0, 50));
 		grid.add(questionQuantity, 2, 1);
 		TextField answerQuantity = new TextField();
@@ -110,7 +111,7 @@ public class GUI extends Application {
 		answerQuantity.setVisible(false);
 
 		// question and answer field for the drink
-		Label questionDrink = new Label("Für welches Getränk wollen \nsie diese Option ausführen?");
+		Label questionDrink = new Label("Für welches Getränk wollen \nSie diese Option ausführen?");
 		questionDrink.setPadding(new Insets(0, 0, 0, 50));
 		grid.add(questionDrink, 2, 2);
 		ObservableList<String> optionsDrink = FXCollections.observableArrayList(Room.beverages[0], Room.beverages[1],
@@ -173,7 +174,7 @@ public class GUI extends Application {
 		HBox hbFile = new HBox(10);
 		hbFile.setAlignment(Pos.BOTTOM_RIGHT);
 		hbFile.getChildren().add(fileOutput);
-		grid.add(hbFile, 3, 4);
+		grid.add(hbFile, 3, 3, 1, 2);
 		hbFile.setVisible(false);
 		fileOutput.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
@@ -259,16 +260,16 @@ public class GUI extends Application {
 								break;
 							case 2:
 								status.setVisible(true);
-								status.setText("Bitte wählen sie eine kleinere Menge, \nes ist nicht genug da");
+								status.setText("bitte wählen Sie eine kleinere Menge, \nes ist nicht genug da");
 								break;
 							case 3:
 								status.setVisible(true);
-								status.setText("Bitte wählen sie eine kleinere Menge, \nes ist nicht genug Platz da");
+								status.setText("bitte wählen Sie eine kleinere Menge, \nes ist nicht genug Platz da");
 								break;
 							case 4:
 								status.setVisible(true);
 								status.setText(
-										"Bitte wählen sie eine kleinere Menge, \nder Lagerplatz würde unter die aktuelle Menge/ 0 fallen");
+										"bitte wählen Sie eine kleinere Menge, \nder Lagerplatz würde unter die aktuelle Menge/ 0 fallen");
 								break;
 							}
 						} catch (IOException e1) {
@@ -294,16 +295,16 @@ public class GUI extends Application {
 								break;
 							case 2:
 								status.setVisible(true);
-								status.setText("Bitte wählen sie eine kleinere Menge, \nes ist nicht genug da");
+								status.setText("bitte wählen Sie eine kleinere Menge, \nes ist nicht genug da");
 								break;
 							case 3:
 								status.setVisible(true);
-								status.setText("Bitte wählen sie eine kleinere Menge, \nes ist nicht genug Platz da");
+								status.setText("bitte wählen Sie eine kleinere Menge, \nes ist nicht genug Platz da");
 								break;
 							case 4:
 								status.setVisible(true);
 								status.setText(
-										"Bitte wählen sie eine kleinere Menge, \nder Lagerplatz würde unter die aktuelle Menge/ 0 fallen");
+										"bitte wählen Sie eine kleinere Menge, \nder Lagerplatz würde unter die aktuelle Menge/ 0 fallen");
 								break;
 							}
 						} catch (IOException e1) {
@@ -329,16 +330,16 @@ public class GUI extends Application {
 								break;
 							case 2:
 								status.setVisible(true);
-								status.setText("Bitte wählen sie eine kleinere Menge, \nes ist nicht genug da");
+								status.setText("bitte wählen Sie eine kleinere Menge, \nes ist nicht genug da");
 								break;
 							case 3:
 								status.setVisible(true);
-								status.setText("Bitte wählen sie eine kleinere Menge, \nes ist nicht genug Platz da");
+								status.setText("bitte wählen Sie eine kleinere Menge, \nes ist nicht genug Platz da");
 								break;
 							case 4:
 								status.setVisible(true);
 								status.setText(
-										"Bitte wählen sie eine kleinere Menge, \nder Lagerplatz würde unter die aktuelle Menge/ 0 fallen");
+										"bitte wählen Sie eine kleinere Menge, \nder Lagerplatz würde unter die aktuelle Menge/ 0 fallen");
 								break;
 							}
 						} catch (IOException e1) {
@@ -364,16 +365,16 @@ public class GUI extends Application {
 								break;
 							case 2:
 								status.setVisible(true);
-								status.setText("Bitte wählen sie eine kleinere Menge, \nes ist nicht genug da");
+								status.setText("bitte wählen Sie eine kleinere Menge, \nes ist nicht genug da");
 								break;
 							case 3:
 								status.setVisible(true);
-								status.setText("Bitte wählen sie eine kleinere Menge, \nes ist nicht genug Platz da");
+								status.setText("bitte wählen Sie eine kleinere Menge, \nes ist nicht genug Platz da");
 								break;
 							case 4:
 								status.setVisible(true);
 								status.setText(
-										"Bitte wählen sie eine kleinere Menge, \nder Lagerplatz würde unter die aktuelle Menge/ 0 fallen");
+										"bitte wählen Sie eine kleinere Menge, \nder Lagerplatz würde unter die aktuelle Menge/ 0 fallen");
 								break;
 							}
 						} catch (IOException e1) {
@@ -399,16 +400,16 @@ public class GUI extends Application {
 								break;
 							case 2:
 								status.setVisible(true);
-								status.setText("Bitte wählen sie eine kleinere Menge, \nes ist nicht genug da");
+								status.setText("bitte wählen Sie eine kleinere Menge, \nes ist nicht genug da");
 								break;
 							case 3:
 								status.setVisible(true);
-								status.setText("Bitte wählen sie eine kleinere Menge, \nes ist nicht genug Platz da");
+								status.setText("bitte wählen Sie eine kleinere Menge, \nes ist nicht genug Platz da");
 								break;
 							case 4:
 								status.setVisible(true);
 								status.setText(
-										"Bitte wählen sie eine kleinere Menge, \nder Lagerplatz würde unter die aktuelle Menge/ 0 fallen");
+										"bitte wählen Sie eine kleinere Menge, \nder Lagerplatz würde unter die aktuelle Menge/ 0 fallen");
 								break;
 							}
 						} catch (IOException e1) {
@@ -434,16 +435,16 @@ public class GUI extends Application {
 								break;
 							case 2:
 								status.setVisible(true);
-								status.setText("Bitte wählen sie eine kleinere Menge, \nes ist nicht genug da");
+								status.setText("bitte wählen Sie eine kleinere Menge, \nes ist nicht genug da");
 								break;
 							case 3:
 								status.setVisible(true);
-								status.setText("Bitte wählen sie eine kleinere Menge, \nes ist nicht genug Platz da");
+								status.setText("bitte wählen Sie eine kleinere Menge, \nes ist nicht genug Platz da");
 								break;
 							case 4:
 								status.setVisible(true);
 								status.setText(
-										"Bitte wählen sie eine kleinere Menge, \nder Lagerplatz würde unter die aktuelle Menge/ 0 fallen");
+										"bitte wählen Sie eine kleinere Menge, \nder Lagerplatz würde unter die aktuelle Menge/ 0 fallen");
 								break;
 							}
 						} catch (IOException e1) {
@@ -461,16 +462,16 @@ public class GUI extends Application {
 					}
 				} catch (NumberFormatException nfe) {
 					status.setVisible(true);
-					status.setText("Bitte geben sie eine valide Ganzzahl ein");
+					status.setText("Bitte geben Sie eine valide Ganzzahl ein");
 				}
 			}
 		});
 
 		// picture for changing amount/ max in storage room
-		Image imageChange = new Image(getClass().getResourceAsStream("mehr_oder_weniger.png"));
+		Image imageChange = new Image(getClass().getResourceAsStream("/pictures/mehr_oder_weniger.png"));
 
 		// the menu button for "Getränke verkaufen"
-		Image imageBottle = new Image(getClass().getResourceAsStream("Bottle_by_Rones.png"));
+		Image imageBottle = new Image(getClass().getResourceAsStream("/pictures/Bottle_by_Rones.png"));
 		Button option1 = new Button("Getränke verkaufen", new ImageView(imageBottle));
 		option1.setContentDisplay(ContentDisplay.LEFT);
 		grid.add(option1, 0, 1);
@@ -496,7 +497,7 @@ public class GUI extends Application {
 		});
 
 		// the menu button for "Verkaufsraum auffüllen"
-		Image imageArrow = new Image(getClass().getResourceAsStream("Pfeil.png"));
+		Image imageArrow = new Image(getClass().getResourceAsStream("/pictures/Pfeil.png"));
 		Button option2 = new Button("Verkaufsraum auffüllen", new ImageView(imageArrow));
 		option2.setContentDisplay(ContentDisplay.LEFT);
 		grid.add(option2, 0, 2);
@@ -572,7 +573,7 @@ public class GUI extends Application {
 		});
 
 		// the menu button for Bestellliste für Lieferanten erstellen"
-		Image imageTruck = new Image(getClass().getResourceAsStream("PixelTruck.png"));
+		Image imageTruck = new Image(getClass().getResourceAsStream("/pictures/PixelTruck.png"));
 		Button option5 = new Button("Bestellliste für Lieferanten erstellen", new ImageView(imageTruck));
 		option5.setContentDisplay(ContentDisplay.LEFT);
 		grid.add(option5, 0, 5);
@@ -610,7 +611,7 @@ public class GUI extends Application {
 		});
 
 		// the menu button for "Inventarliste anzeigen"
-		Image imageBucket = new Image(getClass().getResourceAsStream("bucket-list.png"));
+		Image imageBucket = new Image(getClass().getResourceAsStream("/pictures/bucket-list.png"));
 		Button option6 = new Button("Inventarliste anzeigen", new ImageView(imageBucket));
 		option6.setContentDisplay(ContentDisplay.LEFT);
 		grid.add(option6, 0, 6);
@@ -646,7 +647,7 @@ public class GUI extends Application {
 		});
 
 		// the menu button for "Programm beenden"
-		Image imageStop = new Image(getClass().getResourceAsStream("weißesXAufRotemKreis.png"));
+		Image imageStop = new Image(getClass().getResourceAsStream("/pictures/weißesXAufRotemKreis.png"));
 		Button option7 = new Button("Programm beenden", new ImageView(imageStop));
 		option7.setContentDisplay(ContentDisplay.LEFT);
 		grid.add(option7, 0, 7);
